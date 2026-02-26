@@ -326,11 +326,11 @@
 
         .page-img {
             width: 100%;
-            height: auto; /* Permite que la altura se ajuste automáticamente */
-            max-height: 45%; /* Aumentado para que la imagen ocupe más espacio */
-            background-color: #e8dcc4; /* Fondo vintage para fotos vacías */
-            border-radius: 2px; /* Menos redondeado para estilo antiguo */
-            margin-bottom: 15px; /* Más separación con el texto */
+            height: auto;
+            max-height: 38%;
+            background-color: #e8dcc4;
+            border-radius: 2px;
+            margin-bottom: 8px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -340,27 +340,29 @@
             text-align: center;
             padding: 10px;
             box-sizing: border-box;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra de foto antigua */
-            border: 6px solid #fdf6e3; /* Borde tipo polaroid/foto antigua */
-            border-bottom: 15px solid #fdf6e3; /* Borde inferior más grueso */
-            object-fit: contain; /* Muestra la imagen completa sin recortar */
-            background-color: #fdf6e3; /* Fondo del mismo color que el borde para rellenar espacios vacíos */
-            filter: sepia(0.3) contrast(1.1); /* Filtro vintage a las imágenes */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 6px solid #fdf6e3;
+            border-bottom: 15px solid #fdf6e3;
+            object-fit: contain;
+            background-color: #fdf6e3;
+            filter: sepia(0.3) contrast(1.1);
+            flex-shrink: 0;
         }
 
         .page-text {
-            font-size: 1.25rem; /* Texto más grande para llenar el espacio en PC */
-            line-height: 1.6; /* Interlineado más amplio */
+            font-size: 1.1rem;
+            line-height: 1.5;
             text-align: justify;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly; /* Distribuye el espacio sobrante entre los párrafos */
-            min-height: 0; /* Necesario para que overflow-y funcione en flexbox */
-            color: #3e2723; /* Texto marrón muy oscuro */
-            font-family: 'Lora', serif; /* Fuente más clásica para el texto */
-            overflow-y: hidden; /* Oculta el scrollbar, forzando a que todo quepa */
-            padding-right: 0; /* Sin espacio para scrollbar */
+            justify-content: flex-start;
+            gap: 6px;
+            min-height: 0;
+            color: #3e2723;
+            font-family: 'Lora', serif;
+            overflow-y: auto;
+            padding-right: 4px;
         }
 
         /* Estilizar el scrollbar por si acaso (aunque ahora está oculto) */
@@ -428,16 +430,16 @@
                 overflow: hidden;
             }
             h1 {
-                font-size: 0.9rem !important;
-                padding: 3px 8px !important;
-                margin-bottom: 3px !important;
+                font-size: 0.85rem !important;
+                padding: 4px 10px !important;
+                margin-bottom: 4px !important;
                 letter-spacing: 1px !important;
             }
             .book-container {
                 flex-direction: row;
                 position: relative;
                 width: 100%;
-                height: 88vh;
+                height: calc(100vh - 50px);
                 overflow: visible;
             }
             button {
@@ -460,10 +462,10 @@
             #next-btn {
                 right: 2px;
             }
-            /* === MOBILE: Desactivar el 3D y mostrar UNA cara a la vez a pantalla completa === */
+            /* === MOBILE: Desactivar el 3D y mostrar UNA cara a la vez === */
             .book {
-                width: 95vw !important;
-                max-width: 95vw !important;
+                width: 92vw !important;
+                max-width: 92vw !important;
                 height: 100% !important;
                 max-height: 100% !important;
                 perspective: none !important;
@@ -492,77 +494,76 @@
                 left: 0 !important;
                 transform: none !important;
                 backface-visibility: visible !important;
-                display: none !important; /* Ocultar TODAS las caras por defecto */
-                padding: 5px 7px !important;
+                display: none !important;
+                padding: 12px 14px !important;
                 flex-direction: column !important;
                 justify-content: flex-start !important;
                 overflow: hidden !important;
                 border-radius: 8px !important;
             }
-            /* La cara activa se muestra con esta clase que agrega el JS */
             .front.mobile-visible, .back.mobile-visible {
                 display: flex !important;
                 z-index: 50 !important;
                 opacity: 1 !important;
                 visibility: visible !important;
             }
-            /* Ocultar adornos de borde interior en móvil para ganar espacio */
-            .front::before, .back::before {
+            /* Ocultar adornos en móvil */
+            .front::before, .back::before,
+            .front::after, .back::after {
                 display: none !important;
             }
-            /* Ocultar adornos de esquina en móvil excepto portada */
-            .back::after {
-                display: none !important;
-            }
-            .front::after {
-                display: none !important;
-            }
-            /* Mostrar esquina doblada en la portada para indicar que se puede pasar */
+            /* Esquina doblada solo en portada */
             #p1 .front::after {
                 display: block !important;
                 width: 40px !important;
                 height: 40px !important;
             }
+            /* === Títulos legibles === */
             .page-title {
-                font-size: 0.8rem !important;
-                margin-bottom: 2px !important;
-                padding-bottom: 1px !important;
+                font-size: 1rem !important;
+                margin-bottom: 5px !important;
+                padding-bottom: 3px !important;
+                flex-shrink: 0 !important;
             }
             .page-title::before {
-                font-size: 0.6rem !important;
+                font-size: 0.8rem !important;
                 margin-bottom: 0 !important;
             }
             .page-title span {
-                font-size: 0.65rem !important;
+                font-size: 0.8rem !important;
             }
+            /* === Texto legible y con scroll === */
             .page-text {
-                font-size: 0.55rem !important;
-                line-height: 1.15 !important;
+                font-size: 0.82rem !important;
+                line-height: 1.45 !important;
                 justify-content: flex-start !important;
                 overflow-y: auto !important;
                 flex-grow: 1 !important;
                 min-height: 0 !important;
+                gap: 5px !important;
+                padding-right: 2px !important;
             }
             .page-text p {
-                margin-bottom: 2px !important;
+                margin-bottom: 4px !important;
                 margin-top: 0 !important;
             }
+            /* === Imágenes proporcionales === */
             .page-img {
-                max-height: 22vh !important;
+                max-height: 28vh !important;
                 min-height: 0 !important;
                 height: auto !important;
-                margin-bottom: 2px !important;
-                border-width: 2px !important;
-                border-bottom-width: 3px !important;
+                margin-bottom: 6px !important;
+                border-width: 3px !important;
+                border-bottom-width: 6px !important;
                 width: auto !important;
                 max-width: 100% !important;
-                padding: 2px !important;
-                flex-shrink: 1 !important;
+                padding: 3px !important;
+                flex-shrink: 0 !important;
                 object-fit: contain !important;
             }
             .page-number {
-                margin-top: 2px !important;
-                font-size: 0.5rem !important;
+                margin-top: 3px !important;
+                font-size: 0.6rem !important;
                 flex-shrink: 0 !important;
             }
             /* Portada y contraportada */
@@ -574,27 +575,26 @@
             }
             #p1 .front h2 {
                 font-size: 1.4rem !important;
-                padding: 5px !important;
+                padding: 8px !important;
             }
             #p1 .front p {
-                font-size: 0.85rem !important;
+                font-size: 0.9rem !important;
             }
-            /* Página aniversario (mucho texto) */
+            /* Página aniversario */
             #p8 .front .page-title {
-                font-size: 0.65rem !important;
-                margin-bottom: 1px !important;
+                font-size: 0.85rem !important;
+                margin-bottom: 3px !important;
             }
             #p8 .front .page-img {
-                max-height: 10vh !important;
-                margin-bottom: 1px !important;
+                max-height: 18vh !important;
+                margin-bottom: 4px !important;
             }
             #p8 .front .page-text {
-                font-size: 0.45rem !important;
-                line-height: 1.1 !important;
-                justify-content: space-between !important;
+                font-size: 0.72rem !important;
+                line-height: 1.35 !important;
             }
             #p8 .front .page-text p {
-                margin-bottom: 1px !important;
+                margin-bottom: 3px !important;
             }
             #p8 .back h2 {
                 font-size: 1.1rem !important;
@@ -602,13 +602,36 @@
             #p8 .back div > div {
                 font-size: 1.5rem !important;
             }
-            /* Ocultar scrollbar pero permitir scroll como fallback */
+            /* Scrollbar sutil */
             .page-text::-webkit-scrollbar {
-                width: 0px !important;
-                display: none !important;
+                width: 3px !important;
+            }
+            .page-text::-webkit-scrollbar-thumb {
+                background-color: rgba(139, 69, 19, 0.3) !important;
+                border-radius: 3px !important;
+            }
+            .page-text::-webkit-scrollbar-track {
+                background: transparent !important;
+            }
+        }
+
+        /* === Pantallas muy pequeñas (menos de 380px) === */
+        @media (max-width: 380px) {
+            .page-title {
+                font-size: 0.9rem !important;
+            }
+            .page-title span {
+                font-size: 0.72rem !important;
             }
             .page-text {
-                scrollbar-width: none !important;
+                font-size: 0.75rem !important;
+                line-height: 1.4 !important;
+            }
+            .page-img {
+                max-height: 24vh !important;
+            }
+            #p8 .front .page-text {
+                font-size: 0.65rem !important;
             }
         }
     </style>
@@ -795,7 +818,7 @@
                 <div class="front">
                     <div class="page-title" style="border-bottom: none; margin-bottom: 2px; font-size: 1.2rem;">Feliz Aniversario, amor de mi vida</div>
                     <img src="img/aniversario.jpg" alt="Feliz Aniversario" class="page-img" style="max-height: 30%; margin-bottom: 5px;" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Foto especial de aniversario]</div>'">
-                    <div class="page-text" style="text-align: center; font-style: italic; font-size: 0.9rem; line-height: 1.2; display: flex; flex-direction: column; justify-content: space-evenly; flex-grow: 1;">
+                    <div class="page-text" style="text-align: center; font-style: italic; font-size: 0.9rem; line-height: 1.3; display: flex; flex-direction: column; justify-content: flex-start; flex-grow: 1; gap: 6px;">
                         <p style="margin: 2px 0;">Hoy celebramos dos años de este hermoso camino que hemos decidido recorrer juntos. Dos años de risas, aprendizajes, sueños compartidos y abrazos que se sienten como hogar.</p>
                         <p style="margin: 2px 0;">Solo le pido a la vida y a Dios que me permita pasar el resto de mis días a tu lado… soñando contigo, construyendo nuestros sueños paso a paso y alcanzando cada meta juntos, como el equipo que somos.</p>
                         <p style="margin: 2px 0;">Deseo que siempre caminemos de la mano de Dios, que Él guíe nuestros pasos, fortalezca nuestro amor y nos enseñe a nunca soltarnos el uno al otro, incluso en los momentos difíciles.</p>
@@ -985,167 +1008,22 @@
             });
         });
 
-        // === AUTO-SCALE: Ajusta cada cara para que TODO el contenido quepa ===
-        function autoScaleFace(face) {
-            if (!face || !isMobile()) return;
-            // Saltar portada y contraportada (tienen layout absoluto con imágenes)
-            if (face.querySelector('img[style*="position: absolute"]')) return;
-            
-            // Obtener espacio disponible real
-            const cs = getComputedStyle(face);
-            const paddingTop = parseFloat(cs.paddingTop) || 0;
-            const paddingBottom = parseFloat(cs.paddingBottom) || 0;
-            const available = face.clientHeight - paddingTop - paddingBottom;
-            
-            if (available <= 0) return;
-
-            // Obtener imagen y texto
-            const img = face.querySelector('.page-img');
-            const pageText = face.querySelector('.page-text');
-            
-            // Resetear estilos previos para medir desde cero
-            if (img) img.style.maxHeight = '';
-            if (pageText) {
-                pageText.style.fontSize = '';
-                pageText.style.transform = '';
-                pageText.style.marginBottom = '';
-            }
-            void face.offsetHeight; // forzar reflow
-            
-            // Calcular altura total del contenido (sumando todos los hijos directos)
-            function getContentHeight() {
-                let h = 0;
-                Array.from(face.children).forEach(child => {
-                    // Ignorar elementos ocultos o posicionados absolutamente
-                    const style = getComputedStyle(child);
-                    if (style.display !== 'none' && style.position !== 'absolute') {
-                        h += child.offsetHeight + (parseFloat(style.marginTop) || 0) + (parseFloat(style.marginBottom) || 0);
-                    }
-                });
-                return h;
-            }
-            
-            let contentHeight = getContentHeight();
-            
-            // Si el contenido no cabe, intentar reducir la imagen primero
-            if (img && contentHeight > available) {
-                let currentMaxH = img.offsetHeight;
-                const minImgH = 60; // mínimo para que se vea algo
-                
-                while (contentHeight > available && currentMaxH > minImgH) {
-                    currentMaxH -= 8;
-                    img.style.maxHeight = currentMaxH + 'px';
-                    void face.offsetHeight;
-                    contentHeight = getContentHeight();
-                }
-            }
-            
-            // Si aún no cabe, reducir font-size del texto
-            if (pageText && contentHeight > available) {
-                let currentFontSize = parseFloat(getComputedStyle(pageText).fontSize) || 10;
-                const minFont = 5; // mínimo legible en px (reducido para asegurar que quepa)
-                
-                while (contentHeight > available && currentFontSize > minFont) {
-                    currentFontSize -= 0.2;
-                    pageText.style.fontSize = currentFontSize + 'px';
-                    void face.offsetHeight;
-                    contentHeight = getContentHeight();
-                }
-            }
-            
-            // Si TODAVÍA no cabe, aplicar un scale CSS a todo el contenedor de texto
-            if (contentHeight > available && pageText) {
-                // Calcular cuánto sobra
-                const overflow = contentHeight - available;
-                // Calcular el ratio necesario para que el texto se encoja lo suficiente
-                // Usamos la altura del texto para el ratio, no la altura total
-                const textHeight = pageText.offsetHeight;
-                if (textHeight > 0) {
-                    const targetTextHeight = Math.max(textHeight - overflow, 10); // mínimo 10px
-                    const scaleRatio = targetTextHeight / textHeight;
-                    
-                    // Aplicar transform origin arriba al centro
-                    pageText.style.transformOrigin = 'top center';
-                    pageText.style.transform = `scale(${scaleRatio})`;
-                    // Ajustar el margen inferior para compensar el espacio escalado
-                    pageText.style.marginBottom = `-${textHeight * (1 - scaleRatio)}px`;
-                }
-            }
-        }
-
-        // Escalar una cara esperando a que sus imágenes carguen
-        function autoScaleFaceWithImages(face) {
-            if (!face || !isMobile()) return;
-            if (face.querySelector('img[style*="position: absolute"]')) return;
-            
-            const imgs = face.querySelectorAll('img');
-            let pending = 0;
-            
-            imgs.forEach(img => {
-                if (!img.complete || img.naturalHeight === 0) {
-                    pending++;
-                    const handler = () => {
-                        pending--;
-                        if (pending <= 0) autoScaleFace(face);
-                    };
-                    img.addEventListener('load', handler, { once: true });
-                    img.addEventListener('error', handler, { once: true });
-                }
-            });
-            
-            // Escalar ahora con los tamaños actuales
-            autoScaleFace(face);
-        }
-
-        // Modificar mobileShowFace para auto-escalar después de mostrar
-        const originalMobileShowFace = mobileShowFace;
-        mobileShowFace = function(index) {
-            originalMobileShowFace(index);
-            requestAnimationFrame(() => {
-                autoScaleFaceWithImages(allFaces[index]);
-            });
-        };
+        // Auto-scale removido: ahora el texto hace scroll dentro de la página
 
         // Inicializar
         if (isMobile()) {
             mobileInit();
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    autoScaleFaceWithImages(allFaces[currentFaceIndex]);
-                }, 200);
-            });
         }
         updateButtons();
 
         // Al cambiar de tamaño, reinicializar
         window.addEventListener('resize', () => {
             if (isMobile()) {
-                // Resetear estilos inline de ajuste
-                allFaces.forEach(face => {
-                    const img = face.querySelector('.page-img');
-                    const pt = face.querySelector('.page-text');
-                    if (img) img.style.maxHeight = '';
-                    if (pt) {
-                        pt.style.fontSize = '';
-                        pt.style.transform = '';
-                        pt.style.marginBottom = '';
-                    }
-                });
                 mobileInit();
-                setTimeout(() => autoScaleFaceWithImages(allFaces[currentFaceIndex]), 300);
             } else {
                 // Quitar clases mobile de todas las caras
                 allFaces.forEach(face => {
                     face.classList.remove('mobile-visible');
-                    // Resetear estilos inline
-                    const img = face.querySelector('.page-img');
-                    const pt = face.querySelector('.page-text');
-                    if (img) img.style.maxHeight = '';
-                    if (pt) {
-                        pt.style.fontSize = '';
-                        pt.style.transform = '';
-                        pt.style.marginBottom = '';
-                    }
                 });
                 // Restaurar desktop
                 book.style.transform = "";

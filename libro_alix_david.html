@@ -432,37 +432,37 @@
             body {
                 background-size: cover;
                 background-position: center center;
+                background-attachment: scroll;
                 overflow: hidden;
-                padding: 8px 0;
+                padding: 0;
+                margin: 0;
                 height: 100vh;
                 height: 100dvh;
                 justify-content: flex-start;
             }
             h1 {
-                font-size: 0.8rem !important;
-                padding: 4px 12px !important;
-                margin-bottom: 5px !important;
+                font-size: 0.75rem !important;
+                padding: 3px 10px !important;
+                margin: 4px 0 !important;
                 letter-spacing: 1px !important;
-                flex-shrink: 0 !important;
             }
+            /* Contenedor principal con altura explícita */
             .book-container {
-                flex-direction: row;
-                position: relative;
-                width: 100%;
-                flex: 1 1 0;
-                min-height: 0;
-                overflow: visible;
-                padding: 0 4px;
-                box-sizing: border-box;
+                position: relative !important;
+                width: 100% !important;
+                height: calc(100vh - 35px) !important;
+                height: calc(100dvh - 35px) !important;
+                padding: 0 4px !important;
+                box-sizing: border-box !important;
+                display: block !important;
             }
             button {
                 padding: 10px 14px;
                 font-size: 1.1rem;
                 position: absolute;
                 top: 50%;
-                bottom: auto;
                 transform: translateY(-50%);
-                z-index: 100;
+                z-index: 200;
                 background-color: rgba(212, 197, 176, 0.95);
                 border-radius: 50%;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.4);
@@ -476,86 +476,99 @@
             #next-btn {
                 right: 4px;
             }
+
+            /* Libro ocupa todo el contenedor */
             .book {
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
                 width: 100% !important;
-                max-width: 100% !important;
                 height: 100% !important;
-                max-height: 100% !important;
+                max-width: none !important;
+                max-height: none !important;
                 perspective: none !important;
                 transform-style: flat !important;
                 transform: none !important;
-                margin: 0 auto !important;
+                margin: 0 !important;
             }
             .paper {
                 position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
                 width: 100% !important;
                 height: 100% !important;
                 transform-style: flat !important;
                 transform: none !important;
-                transform-origin: center !important;
                 box-shadow: none !important;
                 transition: none !important;
             }
             .paper.flipped {
                 transform: none !important;
             }
+            /* Cada cara = página completa */
             .front, .back {
                 position: absolute !important;
-                width: 100% !important;
-                height: 100% !important;
                 top: 0 !important;
                 left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
                 transform: none !important;
                 backface-visibility: visible !important;
                 display: none !important;
-                padding: 15px 16px !important;
+                padding: 14px 16px !important;
                 flex-direction: column !important;
                 justify-content: flex-start !important;
                 overflow: hidden !important;
-                border-radius: 10px !important;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+                border-radius: 8px !important;
             }
             .front.mobile-visible, .back.mobile-visible {
                 display: flex !important;
                 z-index: 50 !important;
             }
+            /* Ocultar adornos */
             .front::before, .back::before,
             .front::after, .back::after {
                 display: none !important;
             }
+
+            /* Títulos */
             .page-title {
-                font-size: 1.05rem !important;
-                margin-bottom: 6px !important;
-                padding-bottom: 4px !important;
+                font-size: 1rem !important;
+                margin-bottom: 5px !important;
+                padding-bottom: 3px !important;
                 flex-shrink: 0 !important;
             }
             .page-title::before {
-                font-size: 0.75rem !important;
+                font-size: 0.7rem !important;
                 margin-bottom: 0 !important;
             }
             .page-title span {
-                font-size: 0.8rem !important;
+                font-size: 0.78rem !important;
             }
+
+            /* Texto legible con scroll */
             .page-text {
                 font-size: 0.85rem !important;
                 line-height: 1.5 !important;
                 justify-content: flex-start !important;
                 overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
                 flex-grow: 1 !important;
                 min-height: 0 !important;
                 gap: 8px !important;
                 padding-right: 4px !important;
             }
             .page-text p {
-                margin-bottom: 0 !important;
-                margin-top: 0 !important;
+                margin: 0 !important;
                 flex-shrink: 0 !important;
             }
+
+            /* Imágenes */
             .page-img {
                 max-height: 25vh !important;
                 min-height: 0 !important;
                 height: auto !important;
-                margin-bottom: 8px !important;
+                margin-bottom: 6px !important;
                 border-width: 3px !important;
                 border-bottom-width: 8px !important;
                 width: auto !important;
@@ -566,45 +579,59 @@
                 align-self: center !important;
             }
             .page-number {
-                margin-top: 4px !important;
-                font-size: 0.6rem !important;
+                margin-top: 3px !important;
+                font-size: 0.55rem !important;
                 flex-shrink: 0 !important;
             }
+
+            /* Portada */
             #p1 .front {
                 padding: 0 !important;
-                border-radius: 10px !important;
                 overflow: hidden !important;
             }
             #p1 .front h2 {
-                font-size: 1.6rem !important;
-                padding: 10px 15px !important;
+                font-size: 1.5rem !important;
+                padding: 8px 12px !important;
             }
             #p1 .front p {
-                font-size: 1rem !important;
+                font-size: 0.95rem !important;
             }
+            #p1 .front .tap-hint {
+                font-size: 0.8rem !important;
+                margin-top: 20px !important;
+            }
+
+            /* Contraportada */
             #p8 .back {
                 padding: 0 !important;
-                border-radius: 10px !important;
                 overflow: hidden !important;
             }
             #p8 .back h2 {
-                font-size: 1.2rem !important;
+                font-size: 1.1rem !important;
             }
             #p8 .back div > div {
-                font-size: 1.8rem !important;
+                font-size: 1.6rem !important;
+            }
+
+            /* Página aniversario */
+            #p8 .front {
+                padding: 10px 12px !important;
             }
             #p8 .front .page-title {
-                font-size: 0.9rem !important;
-                margin-bottom: 4px !important;
+                font-size: 0.85rem !important;
+                margin-bottom: 3px !important;
             }
             #p8 .front .page-img {
                 max-height: 18vh !important;
-                margin-bottom: 5px !important;
+                margin-bottom: 4px !important;
             }
             #p8 .front .page-text {
-                font-size: 0.78rem !important;
-                line-height: 1.4 !important;
+                font-size: 0.75rem !important;
+                line-height: 1.35 !important;
+                gap: 5px !important;
             }
+
+            /* Scrollbar sutil */
             .page-text::-webkit-scrollbar {
                 width: 3px !important;
             }
@@ -617,12 +644,13 @@
             }
         }
 
+        /* Pantallas pequeñas */
         @media (max-width: 380px) {
             .page-title {
-                font-size: 0.95rem !important;
+                font-size: 0.9rem !important;
             }
             .page-title span {
-                font-size: 0.72rem !important;
+                font-size: 0.7rem !important;
             }
             .page-text {
                 font-size: 0.78rem !important;
@@ -632,7 +660,7 @@
                 max-height: 22vh !important;
             }
             #p8 .front .page-text {
-                font-size: 0.7rem !important;
+                font-size: 0.68rem !important;
             }
         }
     </style>
@@ -655,10 +683,10 @@
                     <img src="img/portada.jpg" alt="Portada del libro" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;" onerror="this.outerHTML='<div style=\'width: 100%; height: 100%; background-color: #5c3a21; display: flex; justify-content: center; align-items: center; color: #fff; font-style: italic; position: absolute; top: 0; left: 0;\'>[Inserta aquí la imagen de portada completa]</div>'">
                     
                     <!-- Texto sobre la imagen -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.25); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box;">
                         <h2 id="start-book-btn" style="font-size: 3.5rem; margin-bottom: 20px; color: #f1c40f; text-shadow: 3px 3px 6px rgba(0,0,0,0.9), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Nuestra Historia</h2>
                         <p style="font-style: italic; font-size: 1.5rem; color: #f4f1ea; margin-top: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.9), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Escrita por David y Alix</p>
-                        <p class="tap-hint" style="margin-top: 30px; font-size: 0.9rem; color: #fff; background: rgba(0,0,0,0.5); padding: 8px 20px; border-radius: 20px; animation: pulse 2s infinite;">Toca para abrir ▶</p>
+                        <p class="tap-hint" style="margin-top: 30px; font-size: 0.9rem; color: #fff; background: rgba(0,0,0,0.4); padding: 8px 20px; border-radius: 20px; animation: pulse 2s infinite;">Toca para abrir ▶</p>
                     </div>
                 </div>
                 <div class="back">
@@ -820,12 +848,12 @@
                 <div class="front">
                     <div class="page-title" style="border-bottom: none; margin-bottom: 2px; font-size: 1.2rem;">Feliz Aniversario, amor de mi vida</div>
                     <img src="img/aniversario.jpg" alt="Feliz Aniversario" class="page-img" style="max-height: 30%; margin-bottom: 5px;" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Foto especial de aniversario]</div>'">
-                    <div class="page-text" style="text-align: center; font-style: italic; font-size: 0.9rem; line-height: 1.3; display: flex; flex-direction: column; justify-content: flex-start; flex-grow: 1; gap: 6px;">
-                        <p style="margin: 2px 0;">Hoy celebramos dos años de este hermoso camino que hemos decidido recorrer juntos. Dos años de risas, aprendizajes, sueños compartidos y abrazos que se sienten como hogar.</p>
-                        <p style="margin: 2px 0;">Solo le pido a la vida y a Dios que me permita pasar el resto de mis días a tu lado… soñando contigo, construyendo nuestros sueños paso a paso y alcanzando cada meta juntos, como el equipo que somos.</p>
-                        <p style="margin: 2px 0;">Deseo que siempre caminemos de la mano de Dios, que Él guíe nuestros pasos, fortalezca nuestro amor y nos enseñe a nunca soltarnos el uno al otro, incluso en los momentos difíciles.</p>
-                        <p style="margin: 2px 0;">Quiero cumplir nuestra promesa… llegar a viejitos, mirarnos con los mismos ojos llenos de amor y seguir eligiéndonos cada día, amándonos cada vez más profundo, más consciente, más fuerte.</p>
-                        <p style="font-weight: bold; color: #8b4513; margin: 2px 0;">Gracias por estos dos años maravillosos. Lo mejor de mi vida es compartirla contigo. 💕</p>
+                    <div class="page-text" style="text-align: center; font-style: italic; font-size: 0.95rem; line-height: 1.4; display: flex; flex-direction: column; justify-content: space-evenly; flex-grow: 1; gap: 4px; overflow-y: auto;">
+                        <p style="margin: 0;">Hoy celebramos dos años de este hermoso camino que hemos decidido recorrer juntos. Dos años de risas, aprendizajes, sueños compartidos y abrazos que se sienten como hogar.</p>
+                        <p style="margin: 0;">Solo le pido a la vida y a Dios que me permita pasar el resto de mis días a tu lado… soñando contigo, construyendo nuestros sueños paso a paso y alcanzando cada meta juntos, como el equipo que somos.</p>
+                        <p style="margin: 0;">Deseo que siempre caminemos de la mano de Dios, que Él guíe nuestros pasos, fortalezca nuestro amor y nos enseñe a nunca soltarnos el uno al otro, incluso en los momentos difíciles.</p>
+                        <p style="margin: 0;">Quiero cumplir nuestra promesa… llegar a viejitos, mirarnos con los mismos ojos llenos de amor y seguir eligiéndonos cada día, amándonos cada vez más profundo, más consciente, más fuerte.</p>
+                        <p style="font-weight: bold; color: #8b4513; margin: 0;">Gracias por estos dos años maravillosos. Lo mejor de mi vida es compartirla contigo. 💕</p>
                     </div>
                     <div class="page-number">14</div>
                 </div>

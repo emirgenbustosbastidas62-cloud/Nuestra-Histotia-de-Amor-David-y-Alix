@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Nuestra Historia: Alix y David</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #87CEEB;
+            --book-cover: #4a2e1b; /* Marrón más oscuro vintage */
+            --paper-bg: #f4ecd8; /* Color papel viejo */
+            --text-color: #4a3b32; /* Texto marrón oscuro vintage */
+            --accent-color: #8b4513; /* Acento vintage */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            /* Fondo de paisaje animado */
+            background-image: url('img/paisaje.jpg');
+            background-size: cover;
+            background-position: center bottom;
+            background-attachment: fixed;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Capa superpuesta para dar un poco de contraste y que el libro resalte */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15); /* Un ligero velo blanco/transparente */
+            z-index: -1;
+        }
+
+        /* Animación de nubes moviéndose suavemente */
+        .clouds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%; /* Mucho más ancho para permitir el movimiento continuo */
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: url('https://www.transparenttextures.com/patterns/clouds.png'); /* Textura de nubes */
+            background-size: 500px 500px; /* Nubes más grandes */
+            opacity: 0.8; /* Más visibles */
+            animation: moveClouds 40s linear infinite;
+        }
+
+        @keyframes moveClouds {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); }
+        }
+
+        /* Nubes esponjosas flotando en el paisaje (reemplaza a las luciérnagas) */
+        .fireflies {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 300%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            /* Creamos nubes suaves usando gradientes radiales blancos */
+            background-image: 
+                radial-gradient(100px 80px at 10% 20%, rgba(255, 255, 255, 0.8), transparent 70%),
+                radial-gradient(150px 100px at 30% 40%, rgba(255, 255, 255, 0.6), transparent 70%),
+                radial-gradient(120px 90px at 50% 15%, rgba(255, 255, 255, 0.7), transparent 70%),
+                radial-gradient(180px 120px at 70% 35%, rgba(255, 255, 255, 0.5), transparent 70%),
+                radial-gradient(140px 100px at 90% 25%, rgba(255, 255, 255, 0.8), transparent 70%),
+                radial-gradient(200px 150px at 20% 60%, rgba(255, 255, 255, 0.4), transparent 70%),
+                radial-gradient(160px 110px at 60% 70%, rgba(255, 255, 255, 0.6), transparent 70%),
+                radial-gradient(130px 90px at 85% 80%, rgba(255, 255, 255, 0.7), transparent 70%);
+            background-repeat: repeat;
+            background-size: 1200px 800px;
+            animation: moveCloudsFront 25s linear infinite;
+            filter: blur(10px); /* Difumina los bordes para que parezcan nubes reales */
+        }
+
+        @keyframes moveCloudsFront {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); }
+        }
+
+        /* Ocultamos las estrellas fugaces antiguas ya que es de día */
+        .shooting-stars {
+            display: none;
+        }
+
+        .shooting-star {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+            animation: shooting 3s linear infinite;
+            opacity: 0;
+            transform: rotate(-45deg);
+        }
+
+        .shooting-star:nth-child(1) { top: 10%; left: 80%; animation-delay: 0s; }
+        .shooting-star:nth-child(2) { top: 30%; left: 90%; animation-delay: 1.5s; }
+        .shooting-star:nth-child(3) { top: 5%; left: 40%; animation-delay: 2.2s; }
+        .shooting-star:nth-child(4) { top: 60%; left: 70%; animation-delay: 0.8s; }
+
+        @keyframes shooting {
+            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 1; }
+            100% { transform: translateX(-1000px) translateY(1000px) rotate(-45deg); opacity: 0; }
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+
+        h1 {
+            font-family: 'Lora', serif;
+            color: #f4ecd8; /* Color papel viejo */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+            text-align: center;
+            z-index: 10;
+            font-size: 3rem;
+            letter-spacing: 3px;
+        }
+
+        .book-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .book {
+            position: relative;
+            width: 48vw; /* Aún más grande */
+            height: 90vh; /* Ocupa casi todo el alto de la pantalla */
+            max-width: 700px;
+            max-height: 900px;
+            perspective: 2500px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .paper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transform-style: preserve-3d;
+            transform-origin: left center;
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            cursor: pointer;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3); /* Sombra restaurada */
+        }
+
+        /* Esquina doblada (dog-ear) vintage */
+        .front::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, transparent 45%, rgba(0,0,0,0.1) 48%, rgba(255,255,255,0.5) 50%, #d4c5b0 55%);
+            border-radius: 0 0 5px 0;
+            box-shadow: -2px -2px 5px rgba(0,0,0,0.2);
+            z-index: 20;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .front:hover::after {
+            width: 70px;
+            height: 70px;
+        }
+
+        .back::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(225deg, transparent 45%, rgba(0,0,0,0.1) 48%, rgba(255,255,255,0.5) 50%, #d4c5b0 55%);
+            border-radius: 0 0 0 5px;
+            box-shadow: 2px -2px 5px rgba(0,0,0,0.2);
+            z-index: 20;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .back:hover::after {
+            width: 70px;
+            height: 70px;
+        }
+
+        .paper.flipped {
+            transform: rotateY(-180deg);
+        }
+
+        .paper.flipped .front {
+            z-index: 1;
+        }
+
+        .paper.flipped .back {
+            z-index: 2;
+        }
+
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            backface-visibility: hidden;
+            background-color: var(--paper-bg);
+            border-radius: 5px 15px 15px 5px;
+            padding: 15px 20px; /* Menos padding para más espacio */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            box-shadow: inset -5px 0 10px rgba(0,0,0,0.05);
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            border: 1px solid #d4c5b0;
+        }
+
+        .back {
+            transform: rotateY(180deg);
+            border-radius: 15px 5px 5px 15px;
+            box-shadow: inset 5px 0 10px rgba(0,0,0,0.05);
+            z-index: 1;
+        }
+
+        #p1 .front {
+            background-color: #4a2e1b; /* Marrón oscuro vintage para la portada */
+            color: #f4ecd8;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 4px solid #2c1a0f; /* Borde más grueso y oscuro */
+            background-image: url('https://www.transparenttextures.com/patterns/leather.png'); /* Textura de cuero para la portada */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        #p1 .front h2 {
+            font-family: 'Lora', serif;
+            font-size: 3.5rem; /* Más grande */
+            margin-bottom: 10px;
+            color: #d4af37; /* Dorado vintage */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            background: linear-gradient(145deg, #8b4513, #5c3a21);
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        #p1 .front h2:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 2px 5px rgba(255,255,255,0.3);
+        }
+
+        /* Adornos de libro antiguo en las páginas interiores */
+        .front::before, .back::before {
+            content: '';
+            position: absolute;
+            top: 12px; bottom: 12px; left: 12px; right: 12px;
+            border: 1px solid rgba(139, 69, 19, 0.3);
+            outline: 1px solid rgba(139, 69, 19, 0.15);
+            outline-offset: -4px;
+            border-radius: 2px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Ocultar adornos en portadas y contraportadas con imágenes completas */
+        #p1 .front::before, #p8 .back::before, #p9 .front::before, #p9 .back::before {
+            display: none;
+        }
+
+        .page-title {
+            font-family: 'Lora', serif;
+            font-size: 1.4rem; /* Un poco más pequeño para ahorrar espacio */
+            color: #5c3a21; /* Marrón vintage */
+            margin-bottom: 5px; /* Menos margen */
+            text-align: center;
+            border-bottom: 2px solid #8b4513; /* Línea marrón */
+            padding-bottom: 2px; /* Menos padding */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Adorno floral sobre el título del capítulo */
+        .page-title::before {
+            content: '❦';
+            display: block;
+            font-size: 1.2rem;
+            color: rgba(139, 69, 19, 0.5);
+            margin-bottom: 0px;
+            text-align: center;
+        }
+
+        .page-img {
+            width: 100%;
+            height: auto;
+            max-height: 38%;
+            background-color: #e8dcc4;
+            border-radius: 2px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #5c3a21;
+            font-style: italic;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: 6px solid #fdf6e3;
+            border-bottom: 15px solid #fdf6e3;
+            object-fit: contain;
+            background-color: #fdf6e3;
+            filter: sepia(0.3) contrast(1.1);
+            flex-shrink: 0;
+        }
+
+        .page-text {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            text-align: justify;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 6px;
+            min-height: 0;
+            color: #3e2723;
+            font-family: 'Lora', serif;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        /* Estilizar el scrollbar por si acaso (aunque ahora está oculto) */
+        .page-text::-webkit-scrollbar {
+            width: 4px;
+        }
+        .page-text::-webkit-scrollbar-thumb {
+            background-color: #d4c5b0;
+            border-radius: 4px;
+        }
+
+        .page-text p {
+            margin-bottom: 0; /* El margen lo maneja space-between */
+            margin-top: 0;
+        }
+
+        .page-number {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #999;
+            margin-top: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Adornos a los lados del número de página */
+        .page-number::before {
+            content: '☙ ';
+            color: rgba(139, 69, 19, 0.5);
+        }
+        .page-number::after {
+            content: ' ❧';
+            color: rgba(139, 69, 19, 0.5);
+        }
+
+        button {
+            background-color: #d4c5b0; /* Color vintage */
+            border: 2px solid #8b4513;
+            padding: 15px 20px;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            color: #4a2e1b;
+            font-family: 'Lora', serif;
+            opacity: 0; /* Ocultos por defecto */
+            pointer-events: none; /* No clickeables cuando están ocultos */
+        }
+
+        button.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        button:hover {
+            background-color: #f4ecd8;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-size: cover;
+                background-position: center center;
+                overflow: hidden;
+            }
+            h1 {
+                font-size: 0.85rem !important;
+                padding: 4px 10px !important;
+                margin-bottom: 4px !important;
+                letter-spacing: 1px !important;
+            }
+            .book-container {
+                flex-direction: row;
+                position: relative;
+                width: 100%;
+                height: calc(100vh - 50px);
+                overflow: visible;
+            }
+            button {
+                padding: 8px 12px;
+                font-size: 1.2rem;
+                position: absolute;
+                top: 50%;
+                bottom: auto;
+                transform: translateY(-50%);
+                z-index: 100;
+                background-color: rgba(212, 197, 176, 0.9);
+                border-radius: 50%;
+            }
+            button:hover {
+                transform: translateY(-50%) scale(1.1);
+            }
+            #prev-btn {
+                left: 2px;
+            }
+            #next-btn {
+                right: 2px;
+            }
+            /* === MOBILE: Desactivar el 3D y mostrar UNA cara a la vez === */
+            .book {
+                width: 92vw !important;
+                max-width: 92vw !important;
+                height: 100% !important;
+                max-height: 100% !important;
+                perspective: none !important;
+                transform-style: flat !important;
+                transform: none !important;
+                margin: 0 auto !important;
+            }
+            .paper {
+                position: absolute !important;
+                width: 100% !important;
+                height: 100% !important;
+                transform-style: flat !important;
+                transform: none !important;
+                transform-origin: center !important;
+                box-shadow: none !important;
+                transition: none !important;
+            }
+            .paper.flipped {
+                transform: none !important;
+            }
+            .front, .back {
+                position: absolute !important;
+                width: 100% !important;
+                height: 100% !important;
+                top: 0 !important;
+                left: 0 !important;
+                transform: none !important;
+                backface-visibility: visible !important;
+                display: none !important;
+                padding: 12px 14px !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                overflow: hidden !important;
+                border-radius: 8px !important;
+            }
+            .front.mobile-visible, .back.mobile-visible {
+                display: flex !important;
+                z-index: 50 !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+            /* Ocultar adornos en móvil */
+            .front::before, .back::before,
+            .front::after, .back::after {
+                display: none !important;
+            }
+            /* Esquina doblada solo en portada */
+            #p1 .front::after {
+                display: block !important;
+                width: 40px !important;
+                height: 40px !important;
+            }
+            /* === Títulos legibles === */
+            .page-title {
+                font-size: 1rem !important;
+                margin-bottom: 5px !important;
+                padding-bottom: 3px !important;
+                flex-shrink: 0 !important;
+            }
+            .page-title::before {
+                font-size: 0.8rem !important;
+                margin-bottom: 0 !important;
+            }
+            .page-title span {
+                font-size: 0.8rem !important;
+            }
+            /* === Texto legible y con scroll === */
+            .page-text {
+                font-size: 0.82rem !important;
+                line-height: 1.45 !important;
+                justify-content: flex-start !important;
+                overflow-y: auto !important;
+                flex-grow: 1 !important;
+                min-height: 0 !important;
+                gap: 5px !important;
+                padding-right: 2px !important;
+            }
+            .page-text p {
+                margin-bottom: 4px !important;
+                margin-top: 0 !important;
+            }
+            /* === Imágenes proporcionales === */
+            .page-img {
+                max-height: 28vh !important;
+                min-height: 0 !important;
+                height: auto !important;
+                margin-bottom: 6px !important;
+                border-width: 3px !important;
+                border-bottom-width: 6px !important;
+                width: auto !important;
+                max-width: 100% !important;
+                padding: 3px !important;
+                flex-shrink: 0 !important;
+                object-fit: contain !important;
+            }
+            .page-number {
+                margin-top: 3px !important;
+                font-size: 0.6rem !important;
+                flex-shrink: 0 !important;
+            }
+            /* Portada y contraportada */
+            #p1 .front {
+                padding: 0 !important;
+            }
+            #p8 .back {
+                padding: 0 !important;
+            }
+            #p1 .front h2 {
+                font-size: 1.4rem !important;
+                padding: 8px !important;
+            }
+            #p1 .front p {
+                font-size: 0.9rem !important;
+            }
+            /* Página aniversario */
+            #p8 .front .page-title {
+                font-size: 0.85rem !important;
+                margin-bottom: 3px !important;
+            }
+            #p8 .front .page-img {
+                max-height: 18vh !important;
+                margin-bottom: 4px !important;
+            }
+            #p8 .front .page-text {
+                font-size: 0.72rem !important;
+                line-height: 1.35 !important;
+            }
+            #p8 .front .page-text p {
+                margin-bottom: 3px !important;
+            }
+            #p8 .back h2 {
+                font-size: 1.1rem !important;
+            }
+            #p8 .back div > div {
+                font-size: 1.5rem !important;
+            }
+            /* Scrollbar sutil */
+            .page-text::-webkit-scrollbar {
+                width: 3px !important;
+            }
+            .page-text::-webkit-scrollbar-thumb {
+                background-color: rgba(139, 69, 19, 0.3) !important;
+                border-radius: 3px !important;
+            }
+            .page-text::-webkit-scrollbar-track {
+                background: transparent !important;
+            }
+        }
+
+        /* === Pantallas muy pequeñas (menos de 380px) === */
+        @media (max-width: 380px) {
+            .page-title {
+                font-size: 0.9rem !important;
+            }
+            .page-title span {
+                font-size: 0.72rem !important;
+            }
+            .page-text {
+                font-size: 0.75rem !important;
+                line-height: 1.4 !important;
+            }
+            .page-img {
+                max-height: 24vh !important;
+            }
+            #p8 .front .page-text {
+                font-size: 0.65rem !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clouds"></div>
+    <div class="fireflies"></div>
+    
+    <h1 style="color: #2c3e50; text-shadow: 2px 2px 4px rgba(255,255,255,0.8); background: rgba(255,255,255,0.5); padding: 10px 20px; border-radius: 15px;">HOGAR ES DONDE SEA QUE ESTOY CONTIGO</h1>
+
+    <div class="book-container">
+        <button id="prev-btn">◄</button>
+        
+        <div id="book" class="book">
+            
+            <div class="paper" id="p1">
+                <div class="front" style="padding: 0; overflow: hidden; position: relative;">
+                    <!-- Imagen de portada completa -->
+                    <img src="img/portada.jpg" alt="Portada del libro" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;" onerror="this.outerHTML='<div style=\'width: 100%; height: 100%; background-color: #5c3a21; display: flex; justify-content: center; align-items: center; color: #fff; font-style: italic; position: absolute; top: 0; left: 0;\'>[Inserta aquí la imagen de portada completa]</div>'">
+                    
+                    <!-- Texto sobre la imagen -->
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box;">
+                        <h2 id="start-book-btn" style="font-size: 3.5rem; margin-bottom: 20px; color: #f1c40f; text-shadow: 3px 3px 6px rgba(0,0,0,0.9), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Nuestra Historia</h2>
+                        <p style="font-style: italic; font-size: 1.5rem; color: #f4f1ea; margin-top: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.9), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Escrita por David y Alix</p>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="page-title">Capítulo 1<br><span style="font-size: 1.2rem; color: #8b4513;">Cuando el destino empezó a escribir</span></div>
+                    <img src="img/capitulo1.jpg" alt="Estudio de tatuajes" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Estudio de tatuajes]</div>'">
+                    <div class="page-text">
+                        <p>Hay personas que llegan a tu vida sin hacer ruido, sin promesas, sin advertencias. Simplemente aparecen.</p>
+                        <p>Así fue la primera vez que sus caminos se cruzaron, en un estudio de tatuajes, entre tinta, miradas casuales y momentos que parecían cotidianos. No hubo fuegos artificiales ni declaraciones eternas. Solo dos vidas coincidiendo en el mismo lugar, sin saber que el destino estaba tomando nota.</p>
+                        <p>Luego el tiempo siguió su curso. Los días se convirtieron en meses. Los meses en años. Y la vida continuó.</p>
+                        <p><strong>Pero el destino nunca olvida.</strong></p>
+                    </div>
+                    <div class="page-number">1</div>
+                </div>
+            </div>
+
+            <div class="paper" id="p2">
+                <div class="front">
+                    <div class="page-title">Capítulo 2<br><span style="font-size: 1.2rem; color: #8b4513;">Un “Hola” en Navidad</span></div>
+                    <img src="img/capitulo2.jpg" alt="Mensaje de texto" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Mensaje de texto en Navidad]</div>'">
+                    <div class="page-text">
+                        <p>Era 25 de diciembre de 2023. Mientras el mundo celebraba la Navidad, ella tomó su celular y escribió algo sencillo, sin imaginar que cambiaría su historia para siempre: <em>— Hola.</em></p>
+                        <p>Ese mensaje fue pequeño… pero abrió una puerta enorme. Desde ese día no dejaron de hablar.</p>
+                        <p>Las conversaciones se volvieron parte del día. Las risas llegaron sin esfuerzo. Las noches se hicieron cortas.</p>
+                        <p>Y poco a poco, sin darse cuenta, empezaron a sentirse en casa el uno con el otro.</p>
+                    </div>
+                    <div class="page-number">2</div>
+                </div>
+                <div class="back">
+                    <div class="page-title">Capítulo 3<br><span style="font-size: 1.2rem; color: #8b4513;">El reencuentro frente al lago</span></div>
+                    <img src="img/capitulo3.jpg" alt="Finca y lago" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Finca frente al lago]</div>'">
+                    <div class="page-text">
+                        <p>No pasó mucho tiempo antes de que ella decidiera ir a verlo.</p>
+                        <p>La finca estaba frente al lago. El aire era tranquilo. El paisaje parecía pintado a mano.</p>
+                        <p>Él la esperaba con su busito rojo y pantaloneta negra. Sencillo. Natural. Sonriendo.</p>
+                        <p>Ese día no solo se encontraron dos personas. Se reencontraron dos almas que estaban listas para empezar algo nuevo.</p>
+                    </div>
+                    <div class="page-number">3</div>
+                </div>
+            </div>
+
+            <div class="paper" id="p3">
+                <div class="front">
+                    <div class="page-title">Capítulo 4<br><span style="font-size: 1.2rem; color: #8b4513;">La despedida que nos acercó más</span></div>
+                    <img src="img/capitulo4.jpg" alt="Terminal de transportes" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Despedida en la terminal]</div>'">
+                    <div class="page-text">
+                        <p>Días después llegó el momento de dejarlo en la terminal de transportes. Él regresaba a Bogotá.</p>
+                        <p>No era una despedida triste… pero sí era de esas que aprietan el corazón.</p>
+                        <p>Porque cuando alguien empieza a importarte de verdad, cada distancia se siente más larga.</p>
+                        <p>Sin embargo, algo dentro de ellos sabía que esto apenas comenzaba.</p>
+                    </div>
+                    <div class="page-number">4</div>
+                </div>
+                <div class="back">
+                    <div class="page-title">Capítulo 5<br><span style="font-size: 1.2rem; color: #8b4513;">Patacones, miradas y el primer beso</span></div>
+                    <img src="img/capitulo5.jpg" alt="Restaurante Patacones" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Comiendo en Patacones]</div>'">
+                    <div class="page-text">
+                        <p>Ella viajó a visitarlo. Fueron a comer a “Patacones”, porque es su comida favorita.</p>
+                        <p>Hablaron, rieron, se miraron distinto.</p>
+                        <p>Y el 14 de enero de 2024, el mundo pareció detenerse por un segundo. Se dieron su primer beso.</p>
+                        <p>No hubo música de fondo. Pero en sus corazones sonó como si todo el universo celebrara.</p>
+                    </div>
+                    <div class="page-number">5</div>
+                </div>
+            </div>
+
+            <div class="paper" id="p4">
+                <div class="front">
+                    <div class="page-title">Capítulo 6<br><span style="font-size: 1.2rem; color: #8b4513;">El día que dijimos “somos nosotros”</span></div>
+                    <img src="img/capitulo6.jpg" alt="Estadio Millonarios" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Estadio de Millonarios]</div>'">
+                    <div class="page-text">
+                        <p>El 27 de febrero estaban viendo un partido de Millonarios en el estadio.</p>
+                        <p>Entre la emoción, los goles y el ruido de la hinchada, tomaron una decisión más importante que cualquier marcador:</p>
+                        <p><strong>Ser novios.</strong></p>
+                        <p>Ese día no solo ganó su equipo. Ganó su historia.</p>
+                    </div>
+                    <div class="page-number">6</div>
+                </div>
+                <div class="back">
+                    <div class="page-title">Capítulo 7<br><span style="font-size: 1.2rem; color: #8b4513;">El primer latido de nuestra familia</span></div>
+                    <img src="img/capitulo7.jpg" alt="Llegada de Blue" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Llegada del gatito Blue]</div>'">
+                    <div class="page-text">
+                        <p>Tres meses después de hacerse novios, en mayo de 2024, el amor que sentían necesitaba más espacio para crecer. Así llegó Blue, un tierno gatito que se convirtió en su primer hijo de cuatro patas.</p>
+                        <p>Con sus ronroneos y travesuras, Blue les enseñó lo que significaba cuidar de una vida juntos. Fue la primera pieza de esa gran familia que, sin saberlo, apenas comenzaban a formar.</p>
+                    </div>
+                    <div class="page-number">7</div>
+                </div>
+            </div>
+
+            <div class="paper" id="p5">
+                <div class="front">
+                    <div class="page-title">Capítulo 8<br><span style="font-size: 1.2rem; color: #8b4513;">Construyendo hogar desde el suelo</span></div>
+                    <img src="img/capitulo8.jpg" alt="Apartamento vacío" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Apartamento nuevo]</div>'">
+                    <div class="page-text">
+                        <p>Ese mismo mes de mayo, impulsados por el amor, tomaron la decisión más hermosa: irse a vivir juntos. En agosto, por fin se mudaron a su nuevo apartamento.</p>
+                        <p>Los primeros días dormían en un colchón en el piso. No había sala ni muebles. Solo sueños, abrazos y unas inmensas ganas de construir algo propio.</p>
+                        <p>Poco a poco empezaron a llegar sus cositas, y esas cuatro paredes comenzaron a sentirse como un verdadero hogar.</p>
+                    </div>
+                    <div class="page-number">8</div>
+                </div>
+                <div class="back">
+                    <div class="page-title">Capítulo 9<br><span style="font-size: 1.2rem; color: #8b4513;">La princesa de la casa</span></div>
+                    <img src="img/capitulo9.jpg" alt="Llegada de Mia" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Llegada de la perrita Mia]</div>'">
+                    <div class="page-text">
+                        <p>Con el nuevo apartamento listo, faltaba alguien muy especial para llenarlo de alegría. En ese mismo mes de agosto llegó Mia, la dulce perrita que ya era la adoración de Alix, pero que ahora se convertía en la hija de los dos.</p>
+                        <p>Mia llenó cada rincón con sus ladridos de amor, sus juegos y su ternura infinita. Verla correr por la casa y adaptarse a su nueva vida junto a David y Blue hizo que el hogar estuviera verdaderamente completo.</p>
+                    </div>
+                    <div class="page-number">9</div>
+                </div>
+            </div>
+
+            <div class="paper" id="p6">
+                <div class="front">
+                    <div class="page-title">Capítulo 10<br><span style="font-size: 1.2rem; color: #8b4513;">Nuestras primeras veces</span></div>
+                    <img src="img/capitulo10.jpg" alt="Navidad y Villeta" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Navidad y viaje a Villeta]</div>'">
+                    <div class="page-text">
+                        <p>El año se llenó de momentos inolvidables. En septiembre celebraron su primer Amor y Amistad juntos, reafirmando todo lo que sentían.</p>
+                        <p>En diciembre vivieron su primera Navidad y Año Nuevo iluminando su propia casita. No era una mansión, pero era su reino.</p>
+                        <p>Luego, en enero, viajaron a Las Palmeras en Villeta, disfrutando del sol, el descanso y guardando más recuerdos hermosos en el corazón.</p>
+                    </div>
+                    <div class="page-number">10</div>
+                </div>
+                <div class="back">
+                    <div class="page-title">Capítulo 11<br><span style="font-size: 1.2rem; color: #8b4513;">La pieza que faltaba</span></div>
+                    <img src="img/capitulo11.jpg" alt="Llegada de Sam" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Llegada del perrito Sam]</div>'">
+                    <div class="page-text">
+                        <p>Justo cuando pensaban que su hogar no podía estar más lleno de amor, en febrero de 2025 la vida los sorprendió con un nuevo integrante: el perrito Sam.</p>
+                        <p>Llegó saltando a sus vidas, trayendo consigo una nueva ola de energía, caos del bueno y muchísima felicidad.</p>
+                        <p>Con Sam, la familia de cinco finalmente estaba completa. Tres peluditos y dos humanos locamente enamorados, listos para comerse el mundo.</p>
+                    </div>
+                    <div class="page-number">11</div>
+                </div>
+            </div>
+
+            <div class="paper" id="p7">
+                <div class="front">
+                    <div class="page-title">Capítulo 12<br><span style="font-size: 1.2rem; color: #8b4513;">Soñar juntos en voz alta</span></div>
+                    <img src="img/capitulo12.jpg" alt="Guatapé y DaliClic" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Guatapé y DaliClic]</div>'">
+                    <div class="page-text">
+                        <p>En marzo crearon su primer negocio juntos: <strong>DaliClic</strong>, su tienda de accesorios y joyería. Un sueño convertido en proyecto.</p>
+                        <p>Luego viajaron a Medellín y Guatapé por el cumpleaños de David. Se quedaron en una cabaña frente al lago, mirando la imponente Piedra del Peñol.</p>
+                        <p>Volvieron a celebrar cumpleaños. Viajaron al pueblo. Siguieron sumando momentos. Y cada año que pasa, se aman más que el anterior.</p>
+                    </div>
+                    <div class="page-number">12</div>
+                </div>
+                <div class="back">
+                    <div class="page-title">Capítulo 13<br><span style="font-size: 1.2rem; color: #8b4513;">El comienzo de nuestra eternidad</span></div>
+                    <img src="img/capitulo13.jpg" alt="Mirando al futuro" class="page-img" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Mirando al futuro juntos]</div>'">
+                    <div class="page-text">
+                        <p>Desde aquel “Hola” hasta hoy, no han dejado de elegirse.</p>
+                        <p>Sueñan con viajar por el mundo. Con casarse. Con tener su bebé soñado. Con su casa. Con su finquita. Con ver crecer su negocio.</p>
+                        <p>Pero, sobre todo, sueñan con seguir caminando juntos.</p>
+                        <p>Porque esta no es una historia perfecta. Es una historia real. Llena de decisiones valientes, abrazos sinceros y amor que crece cada día. Y lo más bonito… es que apenas está comenzando.</p>
+                    </div>
+                    <div class="page-number">13</div>
+                </div>
+            </div>
+
+            <div class="paper" id="p8">
+                <div class="front">
+                    <div class="page-title" style="border-bottom: none; margin-bottom: 2px; font-size: 1.2rem;">Feliz Aniversario, amor de mi vida</div>
+                    <img src="img/aniversario.jpg" alt="Feliz Aniversario" class="page-img" style="max-height: 30%; margin-bottom: 5px;" onerror="this.outerHTML='<div class=\'page-img\'>[Ilustración: Foto especial de aniversario]</div>'">
+                    <div class="page-text" style="text-align: center; font-style: italic; font-size: 0.9rem; line-height: 1.3; display: flex; flex-direction: column; justify-content: flex-start; flex-grow: 1; gap: 6px;">
+                        <p style="margin: 2px 0;">Hoy celebramos dos años de este hermoso camino que hemos decidido recorrer juntos. Dos años de risas, aprendizajes, sueños compartidos y abrazos que se sienten como hogar.</p>
+                        <p style="margin: 2px 0;">Solo le pido a la vida y a Dios que me permita pasar el resto de mis días a tu lado… soñando contigo, construyendo nuestros sueños paso a paso y alcanzando cada meta juntos, como el equipo que somos.</p>
+                        <p style="margin: 2px 0;">Deseo que siempre caminemos de la mano de Dios, que Él guíe nuestros pasos, fortalezca nuestro amor y nos enseñe a nunca soltarnos el uno al otro, incluso en los momentos difíciles.</p>
+                        <p style="margin: 2px 0;">Quiero cumplir nuestra promesa… llegar a viejitos, mirarnos con los mismos ojos llenos de amor y seguir eligiéndonos cada día, amándonos cada vez más profundo, más consciente, más fuerte.</p>
+                        <p style="font-weight: bold; color: #8b4513; margin: 2px 0;">Gracias por estos dos años maravillosos. Lo mejor de mi vida es compartirla contigo. 💕</p>
+                    </div>
+                    <div class="page-number">14</div>
+                </div>
+                <div class="back" style="padding: 0; overflow: hidden; position: relative; border: 4px solid #2c1a0f; background-image: url('https://www.transparenttextures.com/patterns/leather.png');">
+                    <!-- Imagen de contraportada -->
+                    <img src="img/contraportada.jpg" alt="Contraportada del libro" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;" onerror="this.outerHTML='<div style=\'width: 100%; height: 100%; background-color: #4a2e1b; display: flex; justify-content: center; align-items: center; color: #f4ecd8; font-style: italic; position: absolute; top: 0; left: 0;\'>[Inserta aquí la imagen de contraportada]</div>'">
+                    
+                    <!-- Texto sobre la imagen -->
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; box-sizing: border-box;">
+                        <h2 style="font-family: 'Lora', serif; color: #f1c40f; text-shadow: 3px 3px 6px rgba(0,0,0,0.9), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; font-size: 2.5rem; margin-bottom: 10px;">"Hogar es donde sea que estoy contigo"</h2>
+                        <div style="margin-top: 20px; font-size: 3rem; color: #d35400; animation: pulseHeart 1.5s infinite; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8));">❤</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <button id="next-btn">►</button>
+    </div>
+
+    <script>
+        const prevBtn = document.querySelector('#prev-btn');
+        const nextBtn = document.querySelector('#next-btn');
+        const book = document.querySelector('#book');
+        const papers = document.querySelectorAll('.paper');
+        const startBookBtn = document.querySelector('#start-book-btn');
+
+        let currentLocation = 1;
+        let numOfPapers = papers.length;
+        let maxLocation = numOfPapers + 1;
+
+        // === MOBILE: Lista ordenada de todas las caras del libro ===
+        let allFaces = [];
+        let currentFaceIndex = 0;
+
+        function buildFacesList() {
+            allFaces = [];
+            papers.forEach(paper => {
+                allFaces.push(paper.querySelector('.front'));
+                allFaces.push(paper.querySelector('.back'));
+            });
+        }
+        buildFacesList();
+
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        // === MOBILE: Mostrar solo la cara actual ===
+        function mobileShowFace(index) {
+            if (index < 0 || index >= allFaces.length) return;
+            // Ocultar todas las caras
+            allFaces.forEach(face => {
+                face.classList.remove('mobile-visible');
+                face.style.display = ''; // Limpiar estilos inline
+            });
+            // Mostrar solo la cara actual
+            allFaces[index].classList.add('mobile-visible');
+            currentFaceIndex = index;
+        }
+
+        function mobileInit() {
+            // Mostrar la portada (primera cara)
+            mobileShowFace(0);
+            currentFaceIndex = 0;
+        }
+
+        // === DESKTOP: Lógica original del libro 3D ===
+        papers.forEach((paper, index) => {
+            paper.style.zIndex = numOfPapers - index;
+        });
+
+        function updateButtons() {
+            if (isMobile()) {
+                // Ocultar Prev si estamos en la primera cara (portada)
+                if (currentFaceIndex === 0) {
+                    prevBtn.classList.remove('visible');
+                } else {
+                    prevBtn.classList.add('visible');
+                }
+                // Ocultar Next en portada (index 0) y en última cara (contraportada)
+                if (currentFaceIndex === 0 || currentFaceIndex === allFaces.length - 1) {
+                    nextBtn.classList.remove('visible');
+                } else {
+                    nextBtn.classList.add('visible');
+                }
+            } else {
+                // Desktop: lógica original
+                if (currentLocation === 1) {
+                    prevBtn.classList.remove('visible');
+                    nextBtn.classList.remove('visible'); // Ocultar Next en portada desktop también
+                } else {
+                    prevBtn.classList.add('visible');
+                    if (currentLocation === maxLocation) {
+                        nextBtn.classList.remove('visible');
+                    } else {
+                        nextBtn.classList.add('visible');
+                    }
+                }
+            }
+        }
+
+        function openBook() {
+            book.style.transform = "translateX(50%)";
+        }
+
+        function closeBook(isAtBeginning) {
+            if (isAtBeginning) {
+                book.style.transform = "translateX(0%)";
+            } else {
+                book.style.transform = "translateX(100%)";
+            }
+        }
+
+        function goNextPage() {
+            if (isMobile()) {
+                // Mobile: avanzar a la siguiente cara
+                if (currentFaceIndex < allFaces.length - 1) {
+                    mobileShowFace(currentFaceIndex + 1);
+                }
+            } else {
+                // Desktop: lógica original del flip 3D
+                if (currentLocation < maxLocation) {
+                    const paper = document.querySelector(`#p${currentLocation}`);
+                    paper.classList.add("flipped");
+                    paper.style.zIndex = currentLocation;
+
+                    if (currentLocation === 1) {
+                        openBook();
+                    } else if (currentLocation === numOfPapers) {
+                        closeBook(false);
+                    }
+                    currentLocation++;
+                }
+            }
+            updateButtons();
+        }
+
+        function goPrevPage() {
+            if (isMobile()) {
+                // Mobile: retroceder a la cara anterior
+                if (currentFaceIndex > 0) {
+                    mobileShowFace(currentFaceIndex - 1);
+                }
+            } else {
+                // Desktop: lógica original del flip 3D
+                if (currentLocation > 1) {
+                    currentLocation--;
+                    const paper = document.querySelector(`#p${currentLocation}`);
+                    paper.classList.remove("flipped");
+                    paper.style.zIndex = numOfPapers - currentLocation + 1;
+
+                    if (currentLocation === 1) {
+                        closeBook(true);
+                    } else if (currentLocation === numOfPapers) {
+                        openBook();
+                    }
+                }
+            }
+            updateButtons();
+        }
+
+        nextBtn.addEventListener("click", goNextPage);
+        prevBtn.addEventListener("click", goPrevPage);
+
+        if (startBookBtn) {
+            startBookBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                goNextPage();
+            });
+        }
+
+        papers.forEach((paper, index) => {
+            paper.addEventListener('click', (e) => {
+                if (!isMobile()) {
+                    if (!paper.classList.contains('flipped')) {
+                        goNextPage();
+                    } else {
+                        goPrevPage();
+                    }
+                }
+            });
+        });
+
+        // Auto-scale removido: ahora el texto hace scroll dentro de la página
+
+        // Inicializar
+        if (isMobile()) {
+            mobileInit();
+        }
+        updateButtons();
+
+        // Al cambiar de tamaño, reinicializar
+        window.addEventListener('resize', () => {
+            if (isMobile()) {
+                mobileInit();
+            } else {
+                // Quitar clases mobile de todas las caras
+                allFaces.forEach(face => {
+                    face.classList.remove('mobile-visible');
+                });
+                // Restaurar desktop
+                book.style.transform = "";
+                if (currentLocation > 1 && currentLocation <= numOfPapers) {
+                    openBook();
+                }
+            }
+            updateButtons();
+        });
+    </script>
+</body>
+</html>

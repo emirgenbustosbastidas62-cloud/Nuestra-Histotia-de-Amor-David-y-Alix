@@ -428,56 +428,89 @@
             transform: scale(1.1);
         }
 
+        /* =============================================
+           MOBILE: position: fixed para garantizar visibilidad
+           ============================================= */
         @media (max-width: 768px) {
+            /* --- Ocultar decoraciones pesadas --- */
+            .clouds, .fireflies {
+                display: none !important;
+            }
+            body::before {
+                display: none !important;
+            }
+
             body {
+                background-color: #5a9fd4;
+                background-image: url('img/paisaje.jpg');
                 background-size: cover;
                 background-position: center center;
                 background-attachment: scroll;
+                background-repeat: no-repeat;
                 overflow: hidden;
                 padding: 0;
                 margin: 0;
                 height: 100vh;
                 height: 100dvh;
-                justify-content: flex-start;
-            }
-            h1 {
-                font-size: 0.75rem !important;
-                padding: 3px 10px !important;
-                margin: 4px 0 !important;
-                letter-spacing: 1px !important;
-            }
-            /* Contenedor principal con altura explícita */
-            .book-container {
-                position: relative !important;
-                width: 100% !important;
-                height: calc(100vh - 35px) !important;
-                height: calc(100dvh - 35px) !important;
-                padding: 0 4px !important;
-                box-sizing: border-box !important;
-                display: block !important;
-            }
-            button {
-                padding: 10px 14px;
-                font-size: 1.1rem;
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                z-index: 200;
-                background-color: rgba(212, 197, 176, 0.95);
-                border-radius: 50%;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-            }
-            button:hover {
-                transform: translateY(-50%) scale(1.1);
-            }
-            #prev-btn {
-                left: 4px;
-            }
-            #next-btn {
-                right: 4px;
             }
 
-            /* Libro ocupa todo el contenedor */
+            /* --- Título fijo arriba --- */
+            h1 {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 5px 10px !important;
+                font-size: 0.65rem !important;
+                letter-spacing: 1px !important;
+                z-index: 1000 !important;
+                box-sizing: border-box !important;
+                text-align: center !important;
+                border-radius: 0 !important;
+                background: rgba(255,255,255,0.7) !important;
+            }
+
+            /* --- Contenedor del libro: FIXED cubre toda la pantalla --- */
+            .book-container {
+                position: fixed !important;
+                top: 30px !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100vw !important;
+                height: auto !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                display: block !important;
+                z-index: 500 !important;
+                gap: 0 !important;
+                box-sizing: border-box !important;
+            }
+
+            /* --- Botones de navegación fijos --- */
+            button {
+                position: fixed !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                z-index: 900 !important;
+                padding: 12px 16px !important;
+                font-size: 1.2rem !important;
+                background-color: rgba(212, 197, 176, 0.95) !important;
+                border-radius: 50% !important;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
+            }
+            button:hover {
+                transform: translateY(-50%) scale(1.1) !important;
+            }
+            #prev-btn {
+                left: 6px !important;
+            }
+            #next-btn {
+                right: 6px !important;
+            }
+
+            /* --- Libro cubre todo el contenedor --- */
             .book {
                 position: absolute !important;
                 top: 0 !important;
@@ -490,7 +523,10 @@
                 transform-style: flat !important;
                 transform: none !important;
                 margin: 0 !important;
+                padding: 0 !important;
             }
+
+            /* --- Cada papel ocupa todo --- */
             .paper {
                 position: absolute !important;
                 top: 0 !important;
@@ -505,7 +541,8 @@
             .paper.flipped {
                 transform: none !important;
             }
-            /* Cada cara = página completa */
+
+            /* --- Cada cara OCULTA por defecto --- */
             .front, .back {
                 position: absolute !important;
                 top: 0 !important;
@@ -515,27 +552,44 @@
                 transform: none !important;
                 backface-visibility: visible !important;
                 display: none !important;
-                padding: 14px 16px !important;
                 flex-direction: column !important;
                 justify-content: flex-start !important;
+                padding: 14px 18px !important;
                 overflow: hidden !important;
-                border-radius: 8px !important;
+                border-radius: 10px !important;
+                background-color: var(--paper-bg) !important;
+                box-sizing: border-box !important;
             }
-            .front.mobile-visible, .back.mobile-visible {
+
+            /* --- Cara activa VISIBLE --- */
+            .front.mobile-visible,
+            .back.mobile-visible {
                 display: flex !important;
-                z-index: 50 !important;
+                z-index: 100 !important;
             }
-            /* Ocultar adornos */
+
+            /* --- CSS FALLBACK: portada visible aunque JS falle --- */
+            #p1 .front {
+                display: flex !important;
+                z-index: 1 !important;
+                padding: 0 !important;
+                overflow: hidden !important;
+            }
+            #p1 .front.mobile-visible {
+                z-index: 100 !important;
+            }
+
+            /* --- Ocultar adornos de esquinas dobladas --- */
             .front::before, .back::before,
             .front::after, .back::after {
                 display: none !important;
             }
 
-            /* Títulos */
+            /* --- Títulos legibles --- */
             .page-title {
                 font-size: 1rem !important;
-                margin-bottom: 5px !important;
-                padding-bottom: 3px !important;
+                margin-bottom: 6px !important;
+                padding-bottom: 4px !important;
                 flex-shrink: 0 !important;
             }
             .page-title::before {
@@ -543,19 +597,19 @@
                 margin-bottom: 0 !important;
             }
             .page-title span {
-                font-size: 0.78rem !important;
+                font-size: 0.8rem !important;
             }
 
-            /* Texto legible con scroll */
+            /* --- Texto con scroll --- */
             .page-text {
-                font-size: 0.85rem !important;
-                line-height: 1.5 !important;
+                font-size: 0.88rem !important;
+                line-height: 1.55 !important;
                 justify-content: flex-start !important;
                 overflow-y: auto !important;
                 -webkit-overflow-scrolling: touch !important;
                 flex-grow: 1 !important;
                 min-height: 0 !important;
-                gap: 8px !important;
+                gap: 10px !important;
                 padding-right: 4px !important;
             }
             .page-text p {
@@ -563,12 +617,12 @@
                 flex-shrink: 0 !important;
             }
 
-            /* Imágenes */
+            /* --- Imágenes proporcionales --- */
             .page-img {
-                max-height: 25vh !important;
+                max-height: 26vh !important;
                 min-height: 0 !important;
                 height: auto !important;
-                margin-bottom: 6px !important;
+                margin-bottom: 8px !important;
                 border-width: 3px !important;
                 border-bottom-width: 8px !important;
                 width: auto !important;
@@ -578,20 +632,18 @@
                 object-fit: contain !important;
                 align-self: center !important;
             }
+
+            /* --- Número de página --- */
             .page-number {
-                margin-top: 3px !important;
-                font-size: 0.55rem !important;
+                margin-top: 4px !important;
+                font-size: 0.6rem !important;
                 flex-shrink: 0 !important;
             }
 
-            /* Portada */
-            #p1 .front {
-                padding: 0 !important;
-                overflow: hidden !important;
-            }
+            /* --- Portada --- */
             #p1 .front h2 {
-                font-size: 1.5rem !important;
-                padding: 8px 12px !important;
+                font-size: 1.4rem !important;
+                padding: 8px 14px !important;
             }
             #p1 .front p {
                 font-size: 0.95rem !important;
@@ -601,7 +653,7 @@
                 margin-top: 20px !important;
             }
 
-            /* Contraportada */
+            /* --- Contraportada --- */
             #p8 .back {
                 padding: 0 !important;
                 overflow: hidden !important;
@@ -613,25 +665,25 @@
                 font-size: 1.6rem !important;
             }
 
-            /* Página aniversario */
+            /* --- Aniversario --- */
             #p8 .front {
-                padding: 10px 12px !important;
+                padding: 12px 14px !important;
             }
             #p8 .front .page-title {
-                font-size: 0.85rem !important;
-                margin-bottom: 3px !important;
-            }
-            #p8 .front .page-img {
-                max-height: 18vh !important;
+                font-size: 0.9rem !important;
                 margin-bottom: 4px !important;
             }
+            #p8 .front .page-img {
+                max-height: 20vh !important;
+                margin-bottom: 5px !important;
+            }
             #p8 .front .page-text {
-                font-size: 0.75rem !important;
-                line-height: 1.35 !important;
-                gap: 5px !important;
+                font-size: 0.78rem !important;
+                line-height: 1.4 !important;
+                gap: 6px !important;
             }
 
-            /* Scrollbar sutil */
+            /* --- Scrollbar sutil --- */
             .page-text::-webkit-scrollbar {
                 width: 3px !important;
             }
@@ -644,7 +696,7 @@
             }
         }
 
-        /* Pantallas pequeñas */
+        /* Pantallas muy pequeñas */
         @media (max-width: 380px) {
             .page-title {
                 font-size: 0.9rem !important;
@@ -653,14 +705,14 @@
                 font-size: 0.7rem !important;
             }
             .page-text {
-                font-size: 0.78rem !important;
+                font-size: 0.8rem !important;
                 line-height: 1.4 !important;
             }
             .page-img {
                 max-height: 22vh !important;
             }
             #p8 .front .page-text {
-                font-size: 0.68rem !important;
+                font-size: 0.7rem !important;
             }
         }
     </style>
@@ -875,26 +927,29 @@
     </div>
 
     <script>
-        const prevBtn = document.querySelector('#prev-btn');
-        const nextBtn = document.querySelector('#next-btn');
-        const book = document.querySelector('#book');
-        const papers = document.querySelectorAll('.paper');
-        const startBookBtn = document.querySelector('#start-book-btn');
+    try {
+        var prevBtn = document.querySelector('#prev-btn');
+        var nextBtn = document.querySelector('#next-btn');
+        var book = document.querySelector('#book');
+        var papers = document.querySelectorAll('.paper');
+        var startBookBtn = document.querySelector('#start-book-btn');
 
-        let currentLocation = 1;
-        let numOfPapers = papers.length;
-        let maxLocation = numOfPapers + 1;
+        var currentLocation = 1;
+        var numOfPapers = papers.length;
+        var maxLocation = numOfPapers + 1;
 
         // === MOBILE: Lista ordenada de todas las caras del libro ===
-        let allFaces = [];
-        let currentFaceIndex = 0;
+        var allFaces = [];
+        var currentFaceIndex = 0;
 
         function buildFacesList() {
             allFaces = [];
-            papers.forEach(paper => {
-                allFaces.push(paper.querySelector('.front'));
-                allFaces.push(paper.querySelector('.back'));
-            });
+            for (var i = 0; i < papers.length; i++) {
+                var f = papers[i].querySelector('.front');
+                var b = papers[i].querySelector('.back');
+                if (f) allFaces.push(f);
+                if (b) allFaces.push(b);
+            }
         }
         buildFacesList();
 
@@ -903,48 +958,77 @@
         }
 
         // === MOBILE: Mostrar solo la cara actual ===
+        // Usa INLINE styles directos para máxima compatibilidad
         function mobileShowFace(index) {
             if (index < 0 || index >= allFaces.length) return;
-            // Ocultar todas las caras
-            allFaces.forEach(face => {
-                face.classList.remove('mobile-visible');
-                face.style.display = ''; // Limpiar estilos inline
-            });
-            // Mostrar solo la cara actual
+            // Ocultar TODAS las caras con style inline directo
+            for (var i = 0; i < allFaces.length; i++) {
+                allFaces[i].classList.remove('mobile-visible');
+                allFaces[i].style.setProperty('display', 'none', 'important');
+            }
+            // Mostrar SOLO la cara activa con display flex inline
             allFaces[index].classList.add('mobile-visible');
+            allFaces[index].style.setProperty('display', 'flex', 'important');
+            allFaces[index].style.setProperty('z-index', '100', 'important');
             currentFaceIndex = index;
         }
 
         function mobileInit() {
+            // Forzar estilos del contenedor para que el libro sea visible
+            var bc = document.querySelector('.book-container');
+            if (bc) {
+                bc.style.setProperty('position', 'fixed', 'important');
+                bc.style.setProperty('top', '30px', 'important');
+                bc.style.setProperty('left', '0', 'important');
+                bc.style.setProperty('right', '0', 'important');
+                bc.style.setProperty('bottom', '0', 'important');
+                bc.style.setProperty('width', '100vw', 'important');
+                bc.style.setProperty('z-index', '500', 'important');
+                bc.style.setProperty('display', 'block', 'important');
+            }
+            if (book) {
+                book.style.setProperty('position', 'absolute', 'important');
+                book.style.setProperty('top', '0', 'important');
+                book.style.setProperty('left', '0', 'important');
+                book.style.setProperty('width', '100%', 'important');
+                book.style.setProperty('height', '100%', 'important');
+                book.style.setProperty('transform', 'none', 'important');
+                book.style.setProperty('max-width', 'none', 'important');
+                book.style.setProperty('max-height', 'none', 'important');
+            }
+            for (var i = 0; i < papers.length; i++) {
+                papers[i].style.setProperty('position', 'absolute', 'important');
+                papers[i].style.setProperty('top', '0', 'important');
+                papers[i].style.setProperty('left', '0', 'important');
+                papers[i].style.setProperty('width', '100%', 'important');
+                papers[i].style.setProperty('height', '100%', 'important');
+                papers[i].style.setProperty('transform', 'none', 'important');
+            }
             // Mostrar la portada (primera cara)
             mobileShowFace(0);
-            currentFaceIndex = 0;
         }
 
         // === DESKTOP: Lógica original del libro 3D ===
-        papers.forEach((paper, index) => {
-            paper.style.zIndex = numOfPapers - index;
-        });
+        for (var pi = 0; pi < papers.length; pi++) {
+            papers[pi].style.zIndex = numOfPapers - pi;
+        }
 
         function updateButtons() {
             if (isMobile()) {
-                // Ocultar Prev si estamos en la primera cara (portada)
                 if (currentFaceIndex === 0) {
                     prevBtn.classList.remove('visible');
                 } else {
                     prevBtn.classList.add('visible');
                 }
-                // Ocultar Next en portada (index 0) y en última cara (contraportada)
                 if (currentFaceIndex === 0 || currentFaceIndex === allFaces.length - 1) {
                     nextBtn.classList.remove('visible');
                 } else {
                     nextBtn.classList.add('visible');
                 }
             } else {
-                // Desktop: lógica original
                 if (currentLocation === 1) {
                     prevBtn.classList.remove('visible');
-                    nextBtn.classList.remove('visible'); // Ocultar Next en portada desktop también
+                    nextBtn.classList.remove('visible');
                 } else {
                     prevBtn.classList.add('visible');
                     if (currentLocation === maxLocation) {
@@ -970,22 +1054,16 @@
 
         function goNextPage() {
             if (isMobile()) {
-                // Mobile: avanzar a la siguiente cara
                 if (currentFaceIndex < allFaces.length - 1) {
                     mobileShowFace(currentFaceIndex + 1);
                 }
             } else {
-                // Desktop: lógica original del flip 3D
                 if (currentLocation < maxLocation) {
-                    const paper = document.querySelector(`#p${currentLocation}`);
+                    var paper = document.querySelector('#p' + currentLocation);
                     paper.classList.add("flipped");
                     paper.style.zIndex = currentLocation;
-
-                    if (currentLocation === 1) {
-                        openBook();
-                    } else if (currentLocation === numOfPapers) {
-                        closeBook(false);
-                    }
+                    if (currentLocation === 1) openBook();
+                    else if (currentLocation === numOfPapers) closeBook(false);
                     currentLocation++;
                 }
             }
@@ -994,23 +1072,17 @@
 
         function goPrevPage() {
             if (isMobile()) {
-                // Mobile: retroceder a la cara anterior
                 if (currentFaceIndex > 0) {
                     mobileShowFace(currentFaceIndex - 1);
                 }
             } else {
-                // Desktop: lógica original del flip 3D
                 if (currentLocation > 1) {
                     currentLocation--;
-                    const paper = document.querySelector(`#p${currentLocation}`);
+                    var paper = document.querySelector('#p' + currentLocation);
                     paper.classList.remove("flipped");
                     paper.style.zIndex = numOfPapers - currentLocation + 1;
-
-                    if (currentLocation === 1) {
-                        closeBook(true);
-                    } else if (currentLocation === numOfPapers) {
-                        openBook();
-                    }
+                    if (currentLocation === 1) closeBook(true);
+                    else if (currentLocation === numOfPapers) openBook();
                 }
             }
             updateButtons();
@@ -1020,52 +1092,46 @@
         prevBtn.addEventListener("click", goPrevPage);
 
         if (startBookBtn) {
-            startBookBtn.addEventListener("click", (e) => {
+            startBookBtn.addEventListener("click", function(e) {
                 e.stopPropagation();
                 goNextPage();
             });
         }
 
-        papers.forEach((paper, index) => {
-            paper.addEventListener('click', (e) => {
-                if (!isMobile()) {
-                    if (!paper.classList.contains('flipped')) {
-                        goNextPage();
-                    } else {
-                        goPrevPage();
+        for (var ci = 0; ci < papers.length; ci++) {
+            (function(paper) {
+                paper.addEventListener('click', function(e) {
+                    if (!isMobile()) {
+                        if (!paper.classList.contains('flipped')) goNextPage();
+                        else goPrevPage();
                     }
-                }
-            });
-        });
-
-        // Auto-scale removido: ahora el texto hace scroll dentro de la página
+                });
+            })(papers[ci]);
+        }
 
         // === TOUCH SWIPE para móvil ===
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const swipeThreshold = 50;
+        var touchStartX = 0;
+        var touchEndX = 0;
+        var swipeThreshold = 50;
 
-        document.addEventListener('touchstart', (e) => {
+        document.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
 
-        document.addEventListener('touchend', (e) => {
+        document.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
+            var diff = touchStartX - touchEndX;
             if (isMobile()) {
-                if (diff > swipeThreshold) {
-                    goNextPage(); // Swipe izquierda = siguiente
-                } else if (diff < -swipeThreshold) {
-                    goPrevPage(); // Swipe derecha = anterior
-                }
+                if (diff > swipeThreshold) goNextPage();
+                else if (diff < -swipeThreshold) goPrevPage();
             }
         }, { passive: true });
 
         // === Tap en portada para abrir (móvil) ===
         if (isMobile()) {
-            const portadaFront = document.querySelector('#p1 .front');
+            var portadaFront = document.querySelector('#p1 .front');
             if (portadaFront) {
-                portadaFront.addEventListener('click', () => {
+                portadaFront.addEventListener('click', function() {
                     if (currentFaceIndex === 0) goNextPage();
                 });
             }
@@ -1078,22 +1144,33 @@
         updateButtons();
 
         // Al cambiar de tamaño, reinicializar
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', function() {
             if (isMobile()) {
                 mobileInit();
             } else {
-                // Quitar clases mobile de todas las caras
-                allFaces.forEach(face => {
-                    face.classList.remove('mobile-visible');
-                });
-                // Restaurar desktop
-                book.style.transform = "";
-                if (currentLocation > 1 && currentLocation <= numOfPapers) {
-                    openBook();
+                for (var ri = 0; ri < allFaces.length; ri++) {
+                    allFaces[ri].classList.remove('mobile-visible');
+                    allFaces[ri].style.display = '';
+                    allFaces[ri].style.zIndex = '';
                 }
+                // Limpiar inline styles del contenedor para desktop
+                var bc = document.querySelector('.book-container');
+                if (bc) bc.removeAttribute('style');
+                if (book) book.removeAttribute('style');
+                for (var rp = 0; rp < papers.length; rp++) {
+                    papers[rp].removeAttribute('style');
+                    papers[rp].style.zIndex = numOfPapers - rp;
+                }
+                book.style.transform = "";
+                if (currentLocation > 1 && currentLocation <= numOfPapers) openBook();
             }
             updateButtons();
         });
+
+    } catch(err) {
+        // Si JS falla, al menos la portada se muestra por CSS fallback
+        console.error('Error en libro:', err);
+    }
     </script>
 </body>
 </html>

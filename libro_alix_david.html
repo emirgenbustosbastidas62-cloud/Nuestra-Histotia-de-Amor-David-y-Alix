@@ -21,7 +21,6 @@
             margin: 0;
             padding: 0;
             font-family: 'Quicksand', sans-serif;
-            /* Fondo de paisaje animado */
             background-image: url('img/paisaje.jpg');
             background-size: cover;
             background-position: center bottom;
@@ -31,7 +30,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            height: 100vh;
             overflow: hidden;
             position: relative;
         }
@@ -128,6 +127,11 @@
         @keyframes twinkle {
             0% { opacity: 0.6; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.02); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
         h1 {
@@ -351,18 +355,19 @@
 
         .page-text {
             font-size: 1.1rem;
-            line-height: 1.5;
+            line-height: 1.6;
             text-align: justify;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            gap: 6px;
+            justify-content: space-evenly;
             min-height: 0;
             color: #3e2723;
             font-family: 'Lora', serif;
             overflow-y: auto;
             padding-right: 4px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Estilizar el scrollbar por si acaso (aunque ahora está oculto) */
@@ -428,44 +433,52 @@
                 background-size: cover;
                 background-position: center center;
                 overflow: hidden;
+                padding: 8px 0;
+                height: 100vh;
+                height: 100dvh;
+                justify-content: flex-start;
             }
             h1 {
-                font-size: 0.85rem !important;
-                padding: 4px 10px !important;
-                margin-bottom: 4px !important;
+                font-size: 0.8rem !important;
+                padding: 4px 12px !important;
+                margin-bottom: 5px !important;
                 letter-spacing: 1px !important;
+                flex-shrink: 0 !important;
             }
             .book-container {
                 flex-direction: row;
                 position: relative;
                 width: 100%;
-                height: calc(100vh - 50px);
+                flex: 1 1 0;
+                min-height: 0;
                 overflow: visible;
+                padding: 0 4px;
+                box-sizing: border-box;
             }
             button {
-                padding: 8px 12px;
-                font-size: 1.2rem;
+                padding: 10px 14px;
+                font-size: 1.1rem;
                 position: absolute;
                 top: 50%;
                 bottom: auto;
                 transform: translateY(-50%);
                 z-index: 100;
-                background-color: rgba(212, 197, 176, 0.9);
+                background-color: rgba(212, 197, 176, 0.95);
                 border-radius: 50%;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.4);
             }
             button:hover {
                 transform: translateY(-50%) scale(1.1);
             }
             #prev-btn {
-                left: 2px;
+                left: 4px;
             }
             #next-btn {
-                right: 2px;
+                right: 4px;
             }
-            /* === MOBILE: Desactivar el 3D y mostrar UNA cara a la vez === */
             .book {
-                width: 92vw !important;
-                max-width: 92vw !important;
+                width: 100% !important;
+                max-width: 100% !important;
                 height: 100% !important;
                 max-height: 100% !important;
                 perspective: none !important;
@@ -495,119 +508,108 @@
                 transform: none !important;
                 backface-visibility: visible !important;
                 display: none !important;
-                padding: 12px 14px !important;
+                padding: 15px 16px !important;
                 flex-direction: column !important;
                 justify-content: flex-start !important;
                 overflow: hidden !important;
-                border-radius: 8px !important;
+                border-radius: 10px !important;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
             }
             .front.mobile-visible, .back.mobile-visible {
                 display: flex !important;
                 z-index: 50 !important;
-                opacity: 1 !important;
-                visibility: visible !important;
             }
-            /* Ocultar adornos en móvil */
             .front::before, .back::before,
             .front::after, .back::after {
                 display: none !important;
             }
-            /* Esquina doblada solo en portada */
-            #p1 .front::after {
-                display: block !important;
-                width: 40px !important;
-                height: 40px !important;
-            }
-            /* === Títulos legibles === */
             .page-title {
-                font-size: 1rem !important;
-                margin-bottom: 5px !important;
-                padding-bottom: 3px !important;
+                font-size: 1.05rem !important;
+                margin-bottom: 6px !important;
+                padding-bottom: 4px !important;
                 flex-shrink: 0 !important;
             }
             .page-title::before {
-                font-size: 0.8rem !important;
+                font-size: 0.75rem !important;
                 margin-bottom: 0 !important;
             }
             .page-title span {
                 font-size: 0.8rem !important;
             }
-            /* === Texto legible y con scroll === */
             .page-text {
-                font-size: 0.82rem !important;
-                line-height: 1.45 !important;
+                font-size: 0.85rem !important;
+                line-height: 1.5 !important;
                 justify-content: flex-start !important;
                 overflow-y: auto !important;
                 flex-grow: 1 !important;
                 min-height: 0 !important;
-                gap: 5px !important;
-                padding-right: 2px !important;
+                gap: 8px !important;
+                padding-right: 4px !important;
             }
             .page-text p {
-                margin-bottom: 4px !important;
+                margin-bottom: 0 !important;
                 margin-top: 0 !important;
+                flex-shrink: 0 !important;
             }
-            /* === Imágenes proporcionales === */
             .page-img {
-                max-height: 28vh !important;
+                max-height: 25vh !important;
                 min-height: 0 !important;
                 height: auto !important;
-                margin-bottom: 6px !important;
+                margin-bottom: 8px !important;
                 border-width: 3px !important;
-                border-bottom-width: 6px !important;
+                border-bottom-width: 8px !important;
                 width: auto !important;
                 max-width: 100% !important;
                 padding: 3px !important;
                 flex-shrink: 0 !important;
                 object-fit: contain !important;
+                align-self: center !important;
             }
             .page-number {
-                margin-top: 3px !important;
+                margin-top: 4px !important;
                 font-size: 0.6rem !important;
                 flex-shrink: 0 !important;
             }
-            /* Portada y contraportada */
             #p1 .front {
                 padding: 0 !important;
+                border-radius: 10px !important;
+                overflow: hidden !important;
+            }
+            #p1 .front h2 {
+                font-size: 1.6rem !important;
+                padding: 10px 15px !important;
+            }
+            #p1 .front p {
+                font-size: 1rem !important;
             }
             #p8 .back {
                 padding: 0 !important;
+                border-radius: 10px !important;
+                overflow: hidden !important;
             }
-            #p1 .front h2 {
-                font-size: 1.4rem !important;
-                padding: 8px !important;
+            #p8 .back h2 {
+                font-size: 1.2rem !important;
             }
-            #p1 .front p {
-                font-size: 0.9rem !important;
+            #p8 .back div > div {
+                font-size: 1.8rem !important;
             }
-            /* Página aniversario */
             #p8 .front .page-title {
-                font-size: 0.85rem !important;
-                margin-bottom: 3px !important;
+                font-size: 0.9rem !important;
+                margin-bottom: 4px !important;
             }
             #p8 .front .page-img {
                 max-height: 18vh !important;
-                margin-bottom: 4px !important;
+                margin-bottom: 5px !important;
             }
             #p8 .front .page-text {
-                font-size: 0.72rem !important;
-                line-height: 1.35 !important;
+                font-size: 0.78rem !important;
+                line-height: 1.4 !important;
             }
-            #p8 .front .page-text p {
-                margin-bottom: 3px !important;
-            }
-            #p8 .back h2 {
-                font-size: 1.1rem !important;
-            }
-            #p8 .back div > div {
-                font-size: 1.5rem !important;
-            }
-            /* Scrollbar sutil */
             .page-text::-webkit-scrollbar {
                 width: 3px !important;
             }
             .page-text::-webkit-scrollbar-thumb {
-                background-color: rgba(139, 69, 19, 0.3) !important;
+                background-color: rgba(139, 69, 19, 0.4) !important;
                 border-radius: 3px !important;
             }
             .page-text::-webkit-scrollbar-track {
@@ -615,23 +617,22 @@
             }
         }
 
-        /* === Pantallas muy pequeñas (menos de 380px) === */
         @media (max-width: 380px) {
             .page-title {
-                font-size: 0.9rem !important;
+                font-size: 0.95rem !important;
             }
             .page-title span {
                 font-size: 0.72rem !important;
             }
             .page-text {
-                font-size: 0.75rem !important;
+                font-size: 0.78rem !important;
                 line-height: 1.4 !important;
             }
             .page-img {
-                max-height: 24vh !important;
+                max-height: 22vh !important;
             }
             #p8 .front .page-text {
-                font-size: 0.65rem !important;
+                font-size: 0.7rem !important;
             }
         }
     </style>
@@ -654,9 +655,10 @@
                     <img src="img/portada.jpg" alt="Portada del libro" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;" onerror="this.outerHTML='<div style=\'width: 100%; height: 100%; background-color: #5c3a21; display: flex; justify-content: center; align-items: center; color: #fff; font-style: italic; position: absolute; top: 0; left: 0;\'>[Inserta aquí la imagen de portada completa]</div>'">
                     
                     <!-- Texto sobre la imagen -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: transparent; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box;">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.25); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; box-sizing: border-box;">
                         <h2 id="start-book-btn" style="font-size: 3.5rem; margin-bottom: 20px; color: #f1c40f; text-shadow: 3px 3px 6px rgba(0,0,0,0.9), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Nuestra Historia</h2>
                         <p style="font-style: italic; font-size: 1.5rem; color: #f4f1ea; margin-top: 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.9), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;">Escrita por David y Alix</p>
+                        <p class="tap-hint" style="margin-top: 30px; font-size: 0.9rem; color: #fff; background: rgba(0,0,0,0.5); padding: 8px 20px; border-radius: 20px; animation: pulse 2s infinite;">Toca para abrir ▶</p>
                     </div>
                 </div>
                 <div class="back">
@@ -1009,6 +1011,37 @@
         });
 
         // Auto-scale removido: ahora el texto hace scroll dentro de la página
+
+        // === TOUCH SWIPE para móvil ===
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const swipeThreshold = 50;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (isMobile()) {
+                if (diff > swipeThreshold) {
+                    goNextPage(); // Swipe izquierda = siguiente
+                } else if (diff < -swipeThreshold) {
+                    goPrevPage(); // Swipe derecha = anterior
+                }
+            }
+        }, { passive: true });
+
+        // === Tap en portada para abrir (móvil) ===
+        if (isMobile()) {
+            const portadaFront = document.querySelector('#p1 .front');
+            if (portadaFront) {
+                portadaFront.addEventListener('click', () => {
+                    if (currentFaceIndex === 0) goNextPage();
+                });
+            }
+        }
 
         // Inicializar
         if (isMobile()) {

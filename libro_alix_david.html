@@ -585,6 +585,28 @@
                 display: none !important;
             }
 
+            /* --- Dog-ear: esquina inferior derecha doblada tipo libro --- */
+            .front.mobile-visible::after,
+            .back.mobile-visible::after {
+                display: block !important;
+                content: '' !important;
+                position: absolute !important;
+                bottom: 0 !important;
+                right: 0 !important;
+                width: 28px !important;
+                height: 28px !important;
+                background: linear-gradient(225deg, transparent 45%, rgba(0,0,0,0.06) 48%, #c9b99a 52%, #beaa8a 100%) !important;
+                box-shadow: -2px -2px 3px rgba(0,0,0,0.12) !important;
+                border-radius: 0 0 8px 0 !important;
+                z-index: 200 !important;
+                pointer-events: none !important;
+            }
+            /* Sin dog-ear en portada y contraportada (tienen imagen completa) */
+            #p1 .front.mobile-visible::after,
+            #p8 .back.mobile-visible::after {
+                display: none !important;
+            }
+
             /* --- Títulos legibles --- */
             .page-title {
                 font-size: 1rem !important;
@@ -604,7 +626,7 @@
             .page-text {
                 font-size: 0.88rem !important;
                 line-height: 1.55 !important;
-                justify-content: flex-start !important;
+                justify-content: space-evenly !important;
                 overflow-y: auto !important;
                 -webkit-overflow-scrolling: touch !important;
                 flex-grow: 1 !important;
@@ -941,6 +963,7 @@
         // === MOBILE: Lista ordenada de todas las caras del libro ===
         var allFaces = [];
         var currentFaceIndex = 0;
+        var isFlipping = false;
 
         function buildFacesList() {
             allFaces = [];
@@ -1006,6 +1029,62 @@
             }
             // Mostrar la portada (primera cara)
             mobileShowFace(0);
+            isFlipping = false;
+        }
+
+        // === MOBILE: Animación de volteo tipo libro ===
+        function mobileFlipTo(newIndex, direction) {
+            if (isFlipping || newIndex < 0 || newIndex >= allFaces.length) return;
+            isFlipping = true;
+
+            var oldFace = allFaces[currentFaceIndex];
+            var newFace = allFaces[newIndex];
+            var isNext = direction === 'next';
+            var origin = isNext ? 'left center' : 'right center';
+
+            // Phase 1: Old page flips away
+            oldFace.style.setProperty('transform-origin', origin, 'important');
+            oldFace.style.setProperty('transition', 'transform 0.4s ease-in', 'important');
+            oldFace.style.setProperty('z-index', '115', 'important');
+
+            setTimeout(function() {
+                oldFace.style.setProperty('transform',
+                    'perspective(1200px) rotateY(' + (isNext ? '-90' : '90') + 'deg)', 'important');
+            }, 20);
+
+            // Phase 2: New page flips in
+            setTimeout(function() {
+                newFace.style.setProperty('transition', 'none', 'important');
+                newFace.style.setProperty('transform-origin', origin, 'important');
+                newFace.style.setProperty('transform',
+                    'perspective(1200px) rotateY(' + (isNext ? '90' : '-90') + 'deg)', 'important');
+                newFace.style.setProperty('display', 'flex', 'important');
+                newFace.style.setProperty('z-index', '110', 'important');
+                newFace.classList.add('mobile-visible');
+
+                setTimeout(function() {
+                    newFace.style.setProperty('transition', 'transform 0.4s ease-out', 'important');
+                    newFace.style.setProperty('transform', 'perspective(1200px) rotateY(0deg)', 'important');
+                }, 30);
+            }, 250);
+
+            // Phase 3: Cleanup
+            setTimeout(function() {
+                oldFace.classList.remove('mobile-visible');
+                oldFace.style.setProperty('display', 'none', 'important');
+                oldFace.style.setProperty('transition', 'none', 'important');
+                oldFace.style.setProperty('transform', 'none', 'important');
+                oldFace.style.removeProperty('transform-origin');
+
+                newFace.style.setProperty('z-index', '100', 'important');
+                newFace.style.setProperty('transition', 'none', 'important');
+                newFace.style.setProperty('transform', 'none', 'important');
+                newFace.style.removeProperty('transform-origin');
+
+                currentFaceIndex = newIndex;
+                isFlipping = false;
+                updateButtons();
+            }, 720);
         }
 
         // === DESKTOP: Lógica original del libro 3D ===
@@ -1054,8 +1133,8 @@
 
         function goNextPage() {
             if (isMobile()) {
-                if (currentFaceIndex < allFaces.length - 1) {
-                    mobileShowFace(currentFaceIndex + 1);
+                if (!isFlipping && currentFaceIndex < allFaces.length - 1) {
+                    mobileFlipTo(currentFaceIndex + 1, 'next');
                 }
             } else {
                 if (currentLocation < maxLocation) {
@@ -1072,8 +1151,8 @@
 
         function goPrevPage() {
             if (isMobile()) {
-                if (currentFaceIndex > 0) {
-                    mobileShowFace(currentFaceIndex - 1);
+                if (!isFlipping && currentFaceIndex > 0) {
+                    mobileFlipTo(currentFaceIndex - 1, 'prev');
                 }
             } else {
                 if (currentLocation > 1) {

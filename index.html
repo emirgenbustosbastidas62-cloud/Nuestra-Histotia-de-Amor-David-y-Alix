@@ -488,26 +488,10 @@
                 box-sizing: border-box !important;
             }
 
-            /* --- Botones de navegación fijos --- */
-            button {
-                position: fixed !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
-                z-index: 900 !important;
-                padding: 12px 16px !important;
-                font-size: 1.2rem !important;
-                background-color: rgba(212, 197, 176, 0.95) !important;
-                border-radius: 50% !important;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.5) !important;
-            }
-            button:hover {
-                transform: translateY(-50%) scale(1.1) !important;
-            }
-            #prev-btn {
-                left: 6px !important;
-            }
-            #next-btn {
-                right: 6px !important;
+            /* --- Ocultar botones de flechas en móvil --- */
+            button#prev-btn, button#next-btn {
+                display: none !important;
+                pointer-events: none !important;
             }
 
             /* --- Libro cubre todo el contenedor --- */
@@ -585,26 +569,31 @@
                 display: none !important;
             }
 
-            /* --- Dog-ear: esquina inferior derecha doblada tipo libro --- */
-            .front.mobile-visible::after,
-            .back.mobile-visible::after {
-                display: block !important;
-                content: '' !important;
+            /* --- Dog-ears interactivos (creados por JS) --- */
+            .dog-ear-next, .dog-ear-prev {
                 position: absolute !important;
                 bottom: 0 !important;
-                right: 0 !important;
-                width: 28px !important;
-                height: 28px !important;
-                background: linear-gradient(225deg, transparent 45%, rgba(0,0,0,0.06) 48%, #c9b99a 52%, #beaa8a 100%) !important;
-                box-shadow: -2px -2px 3px rgba(0,0,0,0.12) !important;
-                border-radius: 0 0 8px 0 !important;
-                z-index: 200 !important;
-                pointer-events: none !important;
+                width: 44px !important;
+                height: 44px !important;
+                z-index: 300 !important;
+                cursor: pointer !important;
+                -webkit-tap-highlight-color: transparent !important;
             }
-            /* Sin dog-ear en portada y contraportada (tienen imagen completa) */
-            #p1 .front.mobile-visible::after,
-            #p8 .back.mobile-visible::after {
-                display: none !important;
+            .dog-ear-next {
+                right: 0 !important;
+                background: linear-gradient(225deg, transparent 40%, rgba(0,0,0,0.08) 46%, #c9b99a 50%, #beaa8a 100%) !important;
+                box-shadow: -2px -2px 4px rgba(0,0,0,0.15) !important;
+                border-radius: 0 0 10px 0 !important;
+            }
+            .dog-ear-prev {
+                left: 0 !important;
+                background: linear-gradient(315deg, transparent 40%, rgba(0,0,0,0.08) 46%, #c9b99a 50%, #beaa8a 100%) !important;
+                box-shadow: 2px -2px 4px rgba(0,0,0,0.15) !important;
+                border-radius: 0 0 0 10px !important;
+            }
+            .dog-ear-next:active, .dog-ear-prev:active {
+                width: 54px !important;
+                height: 54px !important;
             }
 
             /* --- Títulos legibles --- */
@@ -994,6 +983,29 @@
             allFaces[index].style.setProperty('display', 'flex', 'important');
             allFaces[index].style.setProperty('z-index', '100', 'important');
             currentFaceIndex = index;
+            // Añadir dog-ears interactivos
+            addDogEars(allFaces[index], index);
+        }
+
+        // Crear dog-ears clickeables en la cara visible
+        function addDogEars(face, idx) {
+            // Quitar dog-ears existentes
+            var old = document.querySelectorAll('.dog-ear-next, .dog-ear-prev');
+            for (var d = 0; d < old.length; d++) old[d].parentNode.removeChild(old[d]);
+            // Dog-ear derecho = siguiente (no en última cara)
+            if (idx < allFaces.length - 1) {
+                var earNext = document.createElement('div');
+                earNext.className = 'dog-ear-next';
+                earNext.addEventListener('click', function(e) { e.stopPropagation(); goNextPage(); });
+                face.appendChild(earNext);
+            }
+            // Dog-ear izquierdo = anterior (no en primera cara)
+            if (idx > 0) {
+                var earPrev = document.createElement('div');
+                earPrev.className = 'dog-ear-prev';
+                earPrev.addEventListener('click', function(e) { e.stopPropagation(); goPrevPage(); });
+                face.appendChild(earPrev);
+            }
         }
 
         function mobileInit() {
@@ -1084,6 +1096,7 @@
                 currentFaceIndex = newIndex;
                 isFlipping = false;
                 updateButtons();
+                addDogEars(allFaces[newIndex], newIndex);
             }, 720);
         }
 
